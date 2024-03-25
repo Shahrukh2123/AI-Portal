@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="business_value" table="x_ggisu_cdp_app_st_cdp_portal" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>business_value</element>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:17:36</sys_created_on>
+            <sys_id>58aa25e897f40e106ca8f0c6f053af92</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>business_value</sys_name>
+            <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+            <sys_update_name>sys_choice_x_ggisu_cdp_app_st_cdp_portal_business_value</sys_update_name>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:17:36</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>business_value</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Low</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:18:04</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>49ba292c97f40e106ca8f0c6f053af78</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:18:04</sys_updated_on>
+            <value>low</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>business_value</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Medium</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:17:53</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>79aa692897f40e106ca8f0c6f053af6a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:17:53</sys_updated_on>
+            <value>medium</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>business_value</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>High</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence>10</sequence>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:17:36</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>709a25e897f40e106ca8f0c6f053af8e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:17:36</sys_updated_on>
+            <value>high</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">6d1d619187f886106c60a9383cbb3506</sp_column>
+        <sp_widget display_value="Copypage123">66052951877486106c60a9383cbb35fa</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>703329607</sys_created_by>
+        <sys_created_on>2024-03-06 16:23:47</sys_created_on>
+        <sys_id>e91d691587f886106c60a9383cbb35b3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_instance_e91d691587f886106c60a9383cbb35b3</sys_update_name>
+        <sys_updated_by>703329607</sys_updated_by>
+        <sys_updated_on>2024-03-06 16:23:47</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=e91d691587f886106c60a9383cbb35b3"/>
+</record_update>

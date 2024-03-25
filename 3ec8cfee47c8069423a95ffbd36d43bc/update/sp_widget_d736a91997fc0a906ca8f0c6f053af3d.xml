@@ -1,0 +1,1629 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($scope, spUtil, $timeout, spAriaUtil,spModal) {
+  /* widget controller */
+  var c = this;
+	c.keySummary = c.data.keySummaryText;
+	c.keyArtifacts = c.data.keyArtifactsText;
+	$scope.passCountry = function(_src)
+	{
+		    alert(_src);
+	};
+	
+	$scope.$watch("data.rating", function() {
+		if ($scope.data.rating && !$scope.data.allowFeedback)
+			$scope.server.update();
+	});
+	
+	$scope.$watch("data.response", function() {
+		if ($scope.data.response) {
+			$timeout(function() {
+				$scope.data.response = "";
+			}, 2000);
+		}
+	});
+	
+	//Tab content
+	c.openCity= function (evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+		
+  }
+		
+	 tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+		//spUtil.addInfoMessage(tablinks[i].className)
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+	if(tabName=="summary")	{
+  document.getElementById(tabName).style.display = "block";
+	//document.getElementsByClassName('tab_txt').style.font.weight = "bold";
+ // tablinks[0].className = tablinks[0].className.replace(" active", "")
+	//	$scope.risktabstate = "In Progress";
+	tablinks[0].className += " active";
+}
+	if(tabName=="keySummary")	{
+	//	$scope.risktabstate = "Draft";
+  document.getElementById(tabName).style.display = "block";
+  tablinks[1].className += " active";
+}
+	if(tabName=="keyArtifacts")	{
+	//	$scope.risktabstate = "Processed";
+  document.getElementById(tabName).style.display = "block";
+
+	tablinks[2].className += " active";
+}
+}	
+
+tablinks = document.getElementsByClassName("tablinks");
+  tablinks[0].className+= " active";
+	 document.getElementById("summary").style.display = "block";
+			
+
+	//share function
+		c.share_with={
+		//value:c.data.share_with,
+		name:'share_with'
+	}
+	c.showDetails = function(){
+		
+           // c.app = app;
+           $('#myModal').modal('show');
+    };
+	
+	c.go_to_appliaction=function(s){
+		
+		//location.href = (s,'_blank');
+		 window.open(s, '_blank');
+	}
+	
+		c.request_access=function(m){
+		
+		 window.open(m, '_blank');
+	}
+	c.share=function(){
+		
+		c.data.share_with=c.share_with.value;
+		c.data.comments=c.modal_comments;
+		//c.data.app_name=t;
+		
+		c.server.update().then(function(){
+			var redirectTo = "/clientzero?id=cdp_app_details&aid=" + c.data.ans;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);
+		})
+	window.setTimeout(restartscreen, 3000);
+	}
+	
+	c.addtofavourites=function(){
+		c.data.app_id='add to favorite';
+		//c.data.app_id=i;
+		//alert(c.data.app_id);
+		
+		c.server.get({
+                app_id: c.data.app_id,
+            }).then(function(response) {
+                c.data.exceed = response.data.limitExceeded;
+			//alert(c.data.exceed);
+			if(c.data.exceed =='Yes'){
+				
+				
+				spModal.open({
+			title: 'Notification',
+			message: 'You can only add 5 apps to My Favorites section at a time. The oldest app will be removed from My Favorite section as you add new apps. Are you sure you want to add this app to your favourites?',
+			buttons: [
+		
+				{label:'Add to favorites', primary: true},
+				{label:'Cancel', cancel: true}
+			]
+			}).then(function() {
+			c.server.get({
+                action: "ModifyFav",
+							  app_id: c.data.app_id
+            }).then(function(response) {
+            });
+					top.window.location.reload();
+		}, function() {
+				top.window.location.reload();
+	
+		})
+	
+
+							 }else{
+								 var redirectTo = "/clientzero?id=cdp_app_details&aid=" + c.data.ans;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);
+							 }
+	/*	c.server.update().then(function() {
+		var redirectTo = "/portal360?id=app_details&aid=" + c.data.ans;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);*/
+		
+		});
+	 
+
+		
+	}
+c.deleterec = function() {
+		uiActionDelete();
+
+	};
+
+	uiActionDelete = function() {
+c.data.action= "delete";
+		c.server.update().then(function() {
+			var redirectTo =  "/clientzero?id=cdp_app_details&aid=" + c.data.ans;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);
+		});
+
+		
+
+		
+	};
+
+		
+	$scope.storedLike = function(){
+	//	alert(c.data.likeStatus);
+		//alert(document.getElementById("likeIcon").style.color);
+		
+		if(c.data.likeStatus == "like")
+			{
+					document.getElementById('likeIcon').style.color='blue';
+				//	document.getElementById('likeIcon').style.cursor='default';
+				//	document.getElementById('likeIcon').style.pointerEvents = "none";
+					document.getElementById('likeIcon').disabled=false;
+		
+			}
+		
+		if(c.data.likeStatus == "dislike")
+			{
+		//		alert("here");
+					document.getElementById('likeIcon').style.color='black';
+				//	document.getElementById('likeIcon').style.cursor='default';
+				//	document.getElementById('likeIcon').style.pointerEvents = "none";
+					document.getElementById('likeIcon').disabled=false;
+		
+			}
+	}
+	
+	
+	$scope.like =function(){
+
+			c.data.likeApp = "likeApp";
+			
+			if(c.data.likeStatus == "like")
+			{
+				document.getElementById('likeIcon').style.color='blue';
+			}
+			else
+			{
+					document.getElementById('likeIcon').style.color='black';
+			}
+		
+		$scope.server.update().then(function() {
+			c.data.likeApp = undefined;
+						var redirectTo = "/cdpportal?id=cdp_app_details&aid=" + c.data.ans;
+						setTimeout(function(){
+						top.window.location = redirectTo;
+					}, 2000);
+		});
+		
+	}
+	
+	
+	
+	$scope.giveRating =function(){
+
+			c.data.rateApp = "rateapp";
+			$scope.server.update().then(function() {
+			c.data.rateApp = undefined;
+						var redirectTo = "/clientzero?id=cdp_app_details&aid=" + c.data.ans;
+						setTimeout(function(){
+						top.window.location = redirectTo;
+						}, 2000);
+		});
+		
+	}
+	
+	
+	
+	c.submitFeedback = function() {
+		c.data.comments=c.comments;
+		c.data.action="submit";
+		//alert("Thank you submitting request");
+		$scope.server.update().then(function() {
+			//c.data.action = undefined;
+			var redirectTo = "/clientzero?id=cdp_app_details&aid=" + c.data.ans;
+			
+					setTimeout(function(){
+			top.window.location = redirectTo;
+					}, 2000);
+		});
+	}
+	
+	
+	c.invokeChatPrimary = function()
+	{
+		var prefix='https://teams.microsoft.com/l/chat/0/0?users='+c.data.pdevEmail;
+		//var prefix = 'msteams:/1/chat/0/0?users=nishant.kheterpal@genpact.com';
+    window.open(prefix);
+	};
+	
+	c.invokeChatSecondary = function()
+	{
+		var prefix='https://teams.microsoft.com/l/chat/0/0?users='+c.data.sdevEmail;
+		//var prefix = 'msteams:/1/chat/0/0?users=nishant.kheterpal@genpact.com';
+    window.open(prefix);
+	};
+	
+	
+	
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.container{
+  //width:1333px;
+ // width: 100%;
+  margin:0;
+
+}
+.share_txt{
+   /* UI Properties */
+background: transparent linear-gradient(180deg, #00AECF 0%, #011122 100%) 0% 0% no-repeat padding-box;text-align: left;font: normal normal normal 12px/17px Guardian TextEgyp;letter-spacing: 0px;color: #FFFFFF;
+  
+}
+.top-left {
+  position: absolute;
+  top: 68px;
+  left: 69px;
+  text-align: left;
+  font: normal normal normal 38px Arial;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+}
+
+
+.btnapp{
+ top: 221px;
+left: 166px;
+    width: 11.1rem;
+    border-radius: 0px;
+    height: 4.5rem;
+/* UI Properties */
+background: transparent linear-gradient(180deg, #00AECF 0%, #011122 100%) 0% 0% no-repeat padding-box;
+opacity: 1; 
+  
+}
+.bottom-left{
+  text-align: left;
+  font: normal normal normal 29px Arial;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 0.79;
+}
+
+.parent{
+  border: 1px solid #ddd;
+  margin-bottom : 10px;
+  margin-top:56px;
+  background : white;
+  border-radius:4px;
+}
+
+.parent &gt; .hello{
+  padding: 15px;
+}
+
+summary {
+  color: #10548C;
+  font-family: Arial;
+}
+
+.tab {
+  overflow: hidden;
+  margin-bottom:10px;
+  border-bottom: 1px solid #ddd;
+  width:400px;
+   //background-color: #f1f1f1;
+  //border: solid black;
+}
+
+.tab button.active{
+  border-bottom: 2px solid #00AECF;
+  .tab_txt{
+    font-weight:bold;
+  }
+}
+/* Style the buttons inside the tab */
+.tab button {
+  // border-bottom: 3px solid #ddd;
+  background-color: inherit;
+  float: left;
+  border: 1px solid #fff;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 18px;
+  transition: 0.3s;
+  font-size: 17px;
+  // color:#798399;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  text-align: left;
+  font: normal normal normal 16px/28px Arial;
+  letter-spacing: 0px;
+  color: #575757;
+  opacity: 1;
+}
+/*body {
+  font-family: "SourceSansPro", Helvetica, Arial, sans-serif;
+  font-size: 14px!important;
+  line-height: 1.42857!important;
+  color: #01152b;
+  background-color: #ffffff;
+}
+*/
+
+
+
+h3 {
+  font-family: Arial;
+  color: #10548C;
+  margin-top:auto;
+}
+
+.rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.rate:not(:checked) &gt; input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) &gt; label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.rate:not(:checked) &gt; label:before {
+  content: '★ ';
+}
+.rate &gt; input:checked ~ label {
+  color: #ffc700;    
+}
+.rate:not(:checked) &gt; label:hover,
+.rate:not(:checked) &gt; label:hover ~ label {
+  color: #deb217;  
+}
+.rate &gt; input:checked + label:hover,
+.rate &gt; input:checked + label:hover ~ label,
+.rate &gt; input:checked ~ label:hover,
+.rate &gt; input:checked ~ label:hover ~ label,
+.rate &gt; label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.kb-star-on {
+  color: #F2C43B !important;
+  text-shadow: $fav-star-outline;
+}
+
+.kb-star-off {
+  color: $fav-star-color-off !important;
+  text-shadow: $fav-star-outline;
+}
+
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+  color: #4e4b4b;
+}
+
+.btn .badge {
+  position: relative;
+  top: 6px;
+}
+
+.alignDiv{
+  float: right;
+}
+
+.tdRight{
+  //background-color: red;
+  padding-left: 50px;
+  padding-right: 40px;
+  padding-top:40px;
+  //float: right;
+  width: 40%;
+}
+
+.tdLeft{
+  width: 60%;
+  padding-left:50px;
+  padding-top:20px;
+}
+
+.alignSpan{
+  float: right;
+}
+
+.circular_image {
+  border-radius:5px;
+  // background: #73AD21;
+  //padding: 20px;
+  width: 100px;
+  height: 110px;
+}
+
+
+.card{
+  box-shadow: 1px 1px 10px 2px #aaa;
+  //width:inherit;
+  padding:5px
+}
+
+.card-primary{
+  background-color: #6c08a2;
+  border-color:#6c08a2;
+}
+
+.card-title{
+  text-align: left;
+  font: normal normal normal 18px/27px Arial;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  padding-bottom:10px;
+  padding-left:15px;
+  padding-top: 15px;
+}
+.key_dev{
+  text-align: left;
+  font: normal normal normal 14px/28px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+}
+.key_devlop{
+  text-align: left;
+  font: normal normal normal 14px/28px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+}
+
+.key_chat{
+  text-align: left;
+  font: normal normal normal 14px/28px Arial;
+  letter-spacing: 0px;
+  color: #00AECF;
+}
+
+.text{
+  margin-left:auto;
+  font-size:13px;
+}
+
+.card-body{
+  padding:5px
+}
+
+.row {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h2{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#myImg, #myImg2, #myImg3 {
+  border-radius: 5px;
+  cursor: zoom-in;
+  transition: 0.3s;
+}
+
+#myImg:hover, #myImg2:hover, #myImg3:hover {opacity: 10.7;cursor: zoom-in;  transition: 0.3s;}
+
+
+.mySlides {
+  transition: -webkit-transform 0.25s ease;
+}
+
+.mySlides:active {
+  -webkit-transform: scale(2.8);
+}
+.mySlides:hover {
+  -webkit-transform: scale(2.8);
+}
+.mySlides1 {
+  transition: -webkit-transform 0.25s ease;
+}
+.mySlides1:hover {
+  transition: -webkit-transform 0.25s ease;
+}
+
+
+.mySlides1:active {
+  -webkit-transform: scale(3);
+}
+.mySlides1:hover {
+  -webkit-transform: scale(3);
+}
+.mySlides2 {
+  transition: -webkit-transform 0.25s ease;
+}
+.mySlides2:hover {
+  transition: -webkit-transform 0.25s ease;
+}
+
+.mySlides2:active {
+  -webkit-transform: scale(3);
+}
+.mySlides2:hover {
+  -webkit-transform: scale(3);
+}
+
+.created_as
+{
+  padding:10px;
+  text-align: left;
+  font: normal normal normal 15px/22px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  background: #D8D8D8 ;
+  border-radius: 3px;
+  //padding-right:30px;
+  //opacity: 0.35;
+}
+
+.average_rating{
+  text-align: left;
+  font: normal normal normal 15px/22px Arial;
+  letter-spacing: 0px;
+  color: #868686;
+  opacity: 1;
+}
+
+.app_name{
+  text-align: left;
+  font:  bold 48px/75px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+}
+
+.share{
+  width: 16px;
+  height: 14px;
+}
+.share_txt{
+  text-align: left;
+  font: normal normal 600 14px/19px Arial;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+  //background: #8E8C95 0% 0% no-repeat padding-box;
+  border: 0.6000000238418579px solid #8E8C95;
+  opacity: 1;
+  padding-left:17px;
+  padding-top:12px;
+  padding-bottom:12px;
+  padding-bottom:10px;
+}
+
+.fav_txt{
+ // background: #EFEFEF 0% 0% no-repeat padding-box;
+  //opacity: 1;
+  //letter-spacing: 0px;
+  //color: #173C5F;
+  //opacity: 1;
+  //padding-left:28px;
+  //padding-top:5px;
+  top: 136px;
+left: 990px;
+width: 147px;
+height: 35px;
+background: transparent linear-gradient(180deg, #00AECF 0%, #011122 100%) 0% 0% no-repeat padding-box;
+opacity: 1;
+}
+.fav_txt1{
+  opacity: 1;
+  letter-spacing: 0px;
+ // color: #173C5F;
+  color:white;
+  opacity: 1;
+  padding-left:20px;
+  padding-top:5px;
+  background: transparent linear-gradient(180deg, #00AECF 0%, #011122 100%) 0% 0% no-repeat padding-box;
+}
+.fav_icon{
+  text-align: left;
+  font: normal normal 600 14px/19px Arial;
+ // color: #173C5F;
+  color:#fff;
+}
+
+.rating_txt{
+  text-align: left;
+  font: normal normal 600 14px/27px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+}
+
+.preview_txt{
+  text-align: left;
+  font: normal normal normal 23px/36px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+  padding-bottom:10px;
+}
+.clickable-image{
+  padding-bottom:30px;
+}
+
+.tab_txt{
+  text-align: left;
+  font: normal normal normal 18px/27px Arial;
+  letter-spacing: 0px;
+  color: #484C46;
+  opacity: 1;
+}
+
+.attachment_txt{
+  text-align: left;
+  font: normal normal normal 23px/36px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+  padding-top:20px;
+}
+.comment{
+  text-align: left;
+  font: normal normal normal 23px/36px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+  padding-top:20px;
+}
+
+.post_btn{
+text-align: left;
+font: normal normal 600 12px/19px Arial;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+}
+
+textarea.form-control {
+  height: 200px;
+}
+
+#submit{
+  //position:absolute;
+  //bottom:159px;
+  //right:480px;
+}
+
+.attach{
+  //position:absolute;
+  //bottom:169px;
+  //right:570px;
+  padding-right:10px;
+}
+
+.form_text{
+  text-align: left;
+  font: normal normal 600 14px/28px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+}
+
+.form_val{
+  text-align: left;
+//  font: normal normal normal 14px/28px Arial;
+  font:normal normal normal 13px/34px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+}
+
+.comment_box_head{
+  text-align: left;
+  font: normal normal 600 18px/27px Arial;
+  letter-spacing: 0px;
+  color: #1B2327;
+  opacity: 1;
+}
+
+.comment_align{
+  text-align: right;
+  float: right;
+  font: normal normal normal 12px/24px Arial;
+  letter-spacing: 0px;
+  color: #87888C;
+  opacity: 1;
+}
+
+.user_designation{
+  text-align: left;
+  font: normal normal normal 12px/19px Arial;
+  letter-spacing: 0px;
+  color: #87888C;
+  opacity: 1;
+}
+
+.comment_mentioned{
+  text-align: left;
+  font: normal normal 600 14px/22px Arial;
+  letter-spacing: 0px;
+  color: #87888C;
+  opacity: 1;
+  padding-top:10px;
+}
+
+.heart{
+  width: 40px;
+  height: 40px;
+  padding:10px;
+ // background: #EFEFEF;
+  //border-radius: 12px;
+  opacity: 1;
+}
+
+.fa-heart-o{
+  font-size:17px;
+  padding-top:8px;
+  padding-left:10px;
+  padding-right:6px;
+  padding-bottom:15px;
+  background: #EFEFEF;
+  border-radius: 12px;
+  opacity: 1;
+}
+
+.button_txt{
+  text-align: left;
+  font: normal normal 600 14px/19px Arial;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+  //background: #89CFF0;
+  border-radius: 4px;
+  opacity: 1;
+}
+
+.app-desc{
+  text-align: left;
+  font: normal normal normal 15px/28px Arial;
+  letter-spacing: 0px;
+  color: #868686;
+  opacity: 1;
+
+}
+
+.request_txt{
+  text-align: left;
+  font: normal normal normal 17px/27px Arial;
+  letter-spacing: 0px;
+  color: #00AECF;
+  font-weight:bold;
+  opacity: 1;
+  padding-left:13px;
+  padding-right:10px;
+  margin-top:-15px;
+ // padding-top:5px;
+  padding-bottom:5px;
+}
+
+.application_txt{
+  text-align: left;
+  font: normal normal normal 17px/27px Arial;
+  letter-spacing: 0px;
+  //background: transparent linear-gradient(180deg, #00AECF 0%, #011122 100%) 0% 0% no-repeat padding-box;
+ // color: #FFFFFF;
+  opacity: 1;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>ai_products1</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>AI products1</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	
+	//Get URL parameter after 'aid'
+	data.summary ='';
+	data.keySummaryText ='';
+	data.keyArtifactsText='';
+	data.attachment1Name ='';
+	data.attachment1Type ='';
+	data.attachment1SysID ='';
+	data.attachment2Name ='';
+	data.attachment2Type ='';
+	data.attachment2SysID = '';
+	data.attachment1 = '';
+	data.attachment2 = '';
+	data.pass_like = false;
+	data.pass_dislike = false;
+	var limit =5;
+	data.ans=$sp.getParameter('aid');
+	var sysRecord = data.ans;
+	
+	//request access
+	data.request_access=gs.getProperty('x_ggisu_cdp_app_st_cdp_portal.request_access_catitem')
+	//Glide card record
+	
+	var grCard = new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+	grCard.addQuery('sys_id',sysRecord);
+	grCard.query();
+	
+	if(grCard.next()){
+		
+		data.name=grCard.u_name.getDisplayValue();
+		data.desc=grCard.u_short_description.getDisplayValue();
+		data.app_link=grCard.application_link.getDisplayValue();
+	  var	created_as= grCard.u_app_created_as;
+		//data.likedislike=grCard.getDisplayValue('like_dislike')
+		var developed_as= new GlideRecord('x_ggisu_sn_coe_por_coe_category');
+		developed_as.addQuery('sys_id',created_as);
+		developed_as.query();
+		if(developed_as.next()){
+			data.app_created_as= developed_as.u_app_created_as.getDisplayValue();
+			//gs.addInfoMessage(data.app_created_as)
+			}
+		data.summary = grCard.getValue('u_summary');
+		
+		data.image1 = grCard.getValue('u_sliding_image_1');
+		data.image2 = grCard.getValue('u_sliding_image_2');
+		data.image3 = grCard.getValue('u_sliding_image_3');
+		data.image4 = grCard.getValue('u_sliding_image_4');
+		// added for playing video
+		if(grCard.getValue('video_link')!=null || grCard.getValue('video_link') !="")
+			{
+		data.video_link = grCard.getValue('video_link');
+			}
+		else
+			{
+				data.video_link = null; //grCard.getValue('video_link');
+			}
+			if(grCard.getDisplayValue('u_key_features') != null)
+				{
+						data.keySummaryText = grCard.getDisplayValue('u_key_features').toString().split("\n");
+				}
+		
+			if(grCard.getDisplayValue('u_key_artifactes') != null)
+				{
+						data.keyArtifactsText = grCard.getDisplayValue('u_key_artifactes').toString().split("\n");
+				}
+		
+		if(grCard.getDisplayValue('u_attachment_1') != null)
+				{
+						data.attachment1Name = grCard.getDisplayValue('u_attachment_1');
+					if(data.attachment1Name == "" || data.attachment1Name == " " || data.attachment1Name == null)
+						{
+							data.attachment1 = "no";	
+							//gs.addInfoMessage(data.attachment1);
+						}
+					
+						data.attachment1SysID	= grCard.getValue('u_attachment_1');
+						if(data.attachment1Name.endsWith(".pdf"))
+							{
+								data.attachment1Type = "pdf_icon_red_4.png";
+							}
+						else
+							{
+								data.attachment1Type = "word_icon.png";
+							}
+							
+				}
+		
+			if(grCard.getDisplayValue('u_attachment_2') != null)
+				{
+						data.attachment2Name = grCard.getDisplayValue('u_attachment_2');
+					if(data.attachment2Name == "" || data.attachment2Name == " " || data.attachment2Name == null)
+						{
+							data.attachment2 = "no";	
+						}
+						data.attachment2SysID	= grCard.getValue('u_attachment_2');
+						if(data.attachment2Name.endsWith(".pdf"))
+							{
+								data.attachment2Type = "pdf_icon_red_4.png";
+							}
+						else
+							{
+								data.attachment2Type = "word_icon.png";
+							}
+							
+				}
+		
+	}
+	//var like_dislike=''
+		 var app_user=gs.getUserID();
+		var grfav=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app')
+				grfav.addQuery('app_name',sysRecord);
+				grfav.addQuery('app_user',app_user);
+				grfav.query();
+				if(grfav.next()){
+					like_dislike='Like'
+				}
+		else{
+			like_dislike='Dislike'
+		}
+		data.like_dislike=like_dislike;
+	
+	//get Rating of the app.
+					var totalRating = 0;
+					var countOfRatings = 0;
+					var grRating = new GlideRecord('x_ggisu_cdp_app_st_app_feedback');
+					grRating.addQuery('u_app_name',sysRecord);
+					grRating.addNotNullQuery('u_rating');
+					grRating.query();
+					countOfRatings = grRating.getRowCount();
+					
+					while(grRating.next())
+						{
+							totalRating = totalRating + grRating.u_rating;
+						}
+	
+					data.ratingAverage = Math.round(totalRating/countOfRatings);
+	
+					var grAvgRating = new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+					grAvgRating.addQuery('sys_id',sysRecord);
+					//grAvgRating.addNotNullQuery('u_rating');
+					grAvgRating.query();
+					if(grAvgRating.next())
+						{
+							grAvgRating.setValue('u_average_rating',data.ratingAverage);
+							grAvgRating.update();
+						}
+	//get storedLike of the app
+	
+					data.likeStatus ='';
+					var grLike = new GlideRecord('x_ggisu_cdp_app_st_app_feedback');
+					grLike.addQuery('u_user', gs.getUserID());
+					grLike.addQuery('u_app_name', sysRecord);
+					grLike.addNotNullQuery('u_like_dislike');
+					grLike.query();
+					while(grLike.next())
+						{
+							data.likeStatus = grLike.u_like_dislike.toString();
+						}
+			//gs.addInfoMessage(data.likeStatus);
+	
+	
+	//get likecount of the app
+					
+					data.likeCount = 0;
+					var grLike2 = new GlideRecord('x_ggisu_cdp_app_st_app_feedback');
+					grLike2.addQuery('u_app_name', sysRecord);
+					grLike2.addNotNullQuery('u_like_dislike');
+					grLike2.addQuery('u_like_dislike','like');
+					grLike2.query();
+					data.likeCount = grLike2.getRowCount();
+	
+			//gs.addInfoMessage(data.likeCount);
+	
+	//get comments of the app
+					
+					data.commentsFeed = [];
+					var grCommentsFeed = new GlideRecord('x_ggisu_cdp_app_st_app_comment');
+					grCommentsFeed.addQuery('u_app_name', sysRecord);
+					grCommentsFeed.addNotNullQuery('u_comment');
+					grCommentsFeed.addQuery('u_comment_approval','approved');
+					grCommentsFeed.orderByDesc('sys_created_on');
+					grCommentsFeed.query();
+					while(grCommentsFeed.next())
+						{
+							var obj ={};
+							
+							obj.comment = grCommentsFeed.getDisplayValue('u_comment');
+							obj.sysCreatedOn = grCommentsFeed.sys_created_on.toString();
+							obj.user = grCommentsFeed.getDisplayValue('u_user');
+							obj.designation=grCommentsFeed.u_user.title.getDisplayValue();
+							data.commentsFeed.push(obj);
+							
+						}
+	
+	if(input)
+		{
+			
+			if(input.rateApp == "rateapp")
+				{
+					
+					
+					var grSetRating = new GlideRecord('x_ggisu_cdp_app_st_app_feedback');
+					grSetRating.addQuery('u_user', gs.getUserID());
+					grSetRating.addQuery('u_app_name', sysRecord);
+					grSetRating.query();
+					if(grSetRating.next())
+						{
+						//	gs.addInfoMessage("inside");
+							grSetRating.u_rating	= input.rating;		
+							grSetRating.update();
+						}
+					else
+						{
+							grSetRating.u_user = gs.getUserID();
+							//gr.u_like_dislike = "like";
+							grSetRating.u_app_name = sysRecord;
+							grSetRating.u_rating = input.rating;
+							grSetRating.insert();
+						}
+					gs.addInfoMessage("Thank you for your feedback !");
+				}
+			
+			
+			if(input.action == "submit")
+				{
+					
+					
+					var grComments = new GlideRecord('x_ggisu_cdp_app_st_app_comment');
+							grComments.u_user = gs.getUserID();
+							//gr.u_like_dislike = "like";
+							grComments.u_app_name = sysRecord;
+							grComments.u_comment = input.comments;
+							grComments.u_comment_approval = 'pending';
+							//gs.addInfoMessage();
+							grComments.insert();
+							gs.eventQueue('x_ggisu_cdp_app_st.comment_approval',grComments,grComments.u_app_name.u_primary_developer_email,grComments.u_app_name.u_secondary_developer_email);
+							
+					//	}
+					gs.addInfoMessage("Your comment has been sent to moderator. It will be published once approved.");
+				}
+			
+			if(input.likeApp == "likeApp")
+				{
+					
+					
+					var gr = new GlideRecord('x_ggisu_cdp_app_st_app_feedback');
+					gr.addQuery('u_user', gs.getUserID());
+					gr.addQuery('u_app_name', sysRecord);
+					gr.query();
+					if(gr.next())
+						{
+							//gs.addInfoMessage("inside");
+							if(gr.u_like_dislike == 'like' ||  gr.u_like_dislike == '')
+							{
+									gr.u_like_dislike = "dislike";
+							}
+							
+							else
+								{
+									gr.u_like_dislike = "like";
+								}		
+							gr.update();
+							
+						}
+					else
+						{
+							gr.u_user = gs.getUserID();
+							gr.u_like_dislike = "like";
+							gr.u_app_name = sysRecord;
+							gr.insert();
+						}
+					gs.addInfoMessage("Thank you for your feedback !");
+				}
+			if(input.share_with){
+			var m=[];
+			var	sharewith=new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+			sharewith.addQuery('sys_id',sysRecord);
+			sharewith.query();
+			var details={};	
+			if(sharewith.next()){
+				var user=new GlideRecord('sys_user')
+				user.addQuery('sys_id',input.share_with)
+				user.query()
+				if (user.next()){
+					details.sharewith= user.getDisplayValue('name');
+				}
+				details.comments=input.comments
+
+				details.sharedfrom=gs.getUserDisplayName()
+				details.appname=sharewith.getDisplayValue('u_name')
+				details.application_link=sharewith.getDisplayValue('application_link')
+
+				//	m.push(details);
+			}
+			gs.info(JSON.stringify(m));
+			gs.eventQueue('x_ggisu_cdp_app_st.ai apps',sharewith,input.share_with,JSON.stringify(details));
+		}
+			
+			//if(input.app_id=='add to favorite'){
+				if(input.app_id){
+			var app_user=gs.getUserID();
+			var favapp=0;
+			var grlike;
+			grlike=new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+			grlike.addQuery('sys_id',sysRecord);
+			grlike.query();
+			if(grlike.next()){
+      	var grfav=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app')
+				grfav.addQuery('app_name',sysRecord);
+				grfav.addQuery('app_user',app_user);
+				grfav.query();
+				if(grfav.next()){
+					grlike.like_dislike='Dislike';
+					grlike.update();
+     			grfav.deleteRecord();
+					gs.addErrorMessage('App has been removed from favorites');
+					//data.favorite_active = true;
+      	}
+				else{
+					var favcount=new GlideAggregate('x_ggisu_cdp_app_st_faviorites_app');
+          favcount.addQuery('app_user',app_user)
+					favcount.addAggregate('COUNT');
+					favcount.query()
+					while(favcount.next()){
+						favapp=favcount.getAggregate('COUNT')
+					}
+					if (favapp>=limit){
+						
+						data.limitExceeded = 'Yes';
+
+					}
+					else{
+
+						grfav.app_name=sysRecord;
+						grfav.app_user=gs.getUserID();
+						grfav.insert();
+						grlike.like_dislike='Like';
+						grlike.update();
+						gs.addInfoMessage("App has been added to your favorites");
+						data.favorite_active = false;
+
+					}
+				}
+			}
+		}
+			
+			if(input.action=="ModifyFav"){
+            app_user=gs.getUserID();
+            var arrayFav = [];
+           var grFav=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app');
+            grFav.addQuery('app_user',app_user);
+            grFav.orderBy('sys_created_on');
+             grFav.query();
+
+while(grFav.next()){
+arrayFav.push(grFav.sys_id.toString());
+}
+//gs.info(JSON.stringify(arrayFav));
+grFav =new GlideRecord('x_ggisu_cdp_app_st_faviorites_app');
+//grFav.addQuery('app_name.u_name',arrayFav[0]);
+grFav.addQuery('sys_id',arrayFav[0]);
+grFav.query();
+	if(grFav.next()){
+		grFav.deleteRecord();
+	}
+
+//gs.info(JSON.stringify(arrayFav));
+gs.addErrorMessage('App has been removed from favorites');
+var grFav2=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app');
+grFav2.initialize();
+//grFav2.app_name=input.app_id;
+grFav2.app_name=	sysRecord;
+grFav2.app_user=gs.getUserID();
+grFav2.like_dislike='Like';
+grFav2.insert();
+//gs.addInfoMessage('App has been added to favorites')
+						}							
+//	end							
+			
+			
+			
+			if(input.action=="delete"){
+
+			var grfav1=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app')
+			grfav1.addQuery('app_name',sysRecord)
+			grfav1.query()
+			if(grfav1.next()){
+				var removelike;
+				removelike=new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+				removelike.addQuery('sys_id',sysRecord);
+				removelike.query();
+				if(removelike.next()){
+					removelike.like_dislike='Dislike';
+					removelike.update();
+					grfav1.deleteRecord();
+					gs.addErrorMessage('App has been removed from favorites');
+				}
+
+			}
+		}
+		}
+	
+	var recordSys = $sp.getParameter('aid');
+	//data.record = [];
+	
+	var grCard2 = new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+	grCard2.addQuery('sys_id',recordSys);
+	grCard2.query();
+	
+	if(grCard2.next()){
+				
+	//	data.label2=grCard2.app_review_date.getLabel();
+	//	data.record2=grCard2.getValue('app_review_date');
+		
+	//	data.label3=grCard2.next_review_date.getLabel();
+	//	data.record3=grCard2.getValue('next_review_date');
+		
+		data.label4=grCard2.x_technical_owner.getLabel();
+		data.record4=grCard2.getDisplayValue('x_technical_owner');
+		
+		data.label5=grCard2.x_business_owner.getLabel();
+		data.record5=grCard2.getDisplayValue('x_business_owner');
+		
+		data.label8=grCard2.video.getLabel();
+		data.record8=grCard2.getDisplayValue('video');
+		
+		data.label9=grCard2.business_owner_email.getLabel();
+		data.record9=grCard2.getDisplayValue('business_owner_email');
+		
+		data.label10=grCard2.technical_owner_email.getLabel();
+		data.record10=grCard2.getDisplayValue('technical_owner_email');
+		
+	//	data.label6=grCard2.infosec_reviewed.getLabel();
+	//	data.record6=grCard2.getDisplayValue('infosec_reviewed');
+		
+	//	data.label7=grCard2.x_infosec_reviewer.getLabel();
+	//	data.record7=grCard2.getDisplayValue('x_infosec_reviewer');
+		
+		data.pdevName = grCard2.getDisplayValue('u_primary_developer_name');
+		data.pdevDescription = grCard2.getDisplayValue('u_primary_developer_description');
+		data.pdevImage = grCard2.getValue('primary_developer_image');
+		data.pdevEmail = grCard2.getDisplayValue('u_primary_developer_email');
+		
+		data.sdevName = grCard2.getDisplayValue('u_secondary_developer_name');
+		data.sdevDescription = grCard2.getDisplayValue('u_secondary_developer_description');
+		data.sdevImage = grCard2.getValue('u_secondary_developer_image');
+		data.sdevEmail = grCard2.getDisplayValue('u_secondary_developer_email');
+		
+	}
+	
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>703329566</sys_created_by>
+        <sys_created_on>2024-03-06 15:53:52</sys_created_on>
+        <sys_id>d736a91997fc0a906ca8f0c6f053af3d</sys_id>
+        <sys_mod_count>102</sys_mod_count>
+        <sys_name>AI products1</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_widget_d736a91997fc0a906ca8f0c6f053af3d</sys_update_name>
+        <sys_updated_by>703329566</sys_updated_by>
+        <sys_updated_on>2024-03-06 18:17:34</sys_updated_on>
+        <template><![CDATA[
+
+<div style="padding-left:50px;padding-top:0px;"><widget id="breadcrumbs"></widget></div>
+
+
+
+<div>
+  <div class="container"  style="padding-top:10px;">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:11px;width:14.66%">
+        <span class="created_as" ng-if="data.app_created_as">
+          {{c.data.app_created_as}}
+        </span>
+      </div>
+
+
+
+      <span class="rating" ng-if="c.data.ratingAverage"><i class="fa fa-star kb-star-on"></i><span class="average_rating">
+        {{c.data.ratingAverage}} (Average Rating)
+        </span>
+      </span> 
+    </div> 
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" style="margin-bottom: 0px;margin:0;padding-left:50px;">
+  <div clss="row" style="">
+    <!--<div class="col-sm-6" style="padding-left:0px;">
+      <div class="app_name" style="padding-top: 22px;font: normal normal normal 22px/21px Guardian TextSans;letter-spacing: 0px;color: #073262;opacity: 1;">
+        {{c.data.name}}
+      </div>
+    </div>-->
+    <div style="display: flex;justify-content: flex-end;">
+    <div class="share_txt"  style="padding-right: 20px;padding-left: 20px;" ng-click="c.showDetails()">
+
+        <img class="share" src="/x_ggisu_cdp_app_st.share_white.png"  /> 
+        <span style="font:normal normal normal 12px/17px Guardian TextEgyp;letter-spacing: 0px;color: #FFFFFF;opacity: 1;">Share</span>
+      </div>
+      <div class="fav_txt1" style="padding-left: 0rem;" ng-if="data.like_dislike==='Like'" ng-click="c.deleterec()" > <img class="heart"  src="/x_ggisu_cdp_app_st.like_icon.png"  /><span class="fav_icon"    style="font: normal normal 600 12px/14px Arial;">Added to favorites</span></div>
+      <div class="fav_txt" style="padding-left: 0.8rem;height: 42px;width: 15rem;margin-left: 10px;" ng-if="data.like_dislike==='Dislike'||data.like_dislike===''"  ng-click="c.addtofavourites()"> <img src="/x_ggisu_cdp_app_st.like_icon.png" class="heart"   /><span class="fav_icon" style="font: normal normal normal 12px/17px Guardian TextEgyp;letter-spacing: 0px;color: #FFFFFF;opacity: 1;">Add to My Apps</span></div>
+      <div style="margin-left: 10px;"><span class="rating_txt" style="font: normal normal normal 12px/17px Guardian TextEgyp;letter-spacing: 0px;color: #011122;
+opacity: 1;"><b>${Rate this app:}</b><br><uib-rating sp-rating ng-model="data.rating" ng-click="giveRating()" max="5" aria-label="${Rate this article}" state-on="'fa fa-star kb-star-on'" state-off="'fa fa-star kb-star-off'"></uib-rating> &nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+
+    </div>
+    
+</div>
+<div class="app-desc" style="padding-left: 50px; color: black; normal normal normal 12px/17px Guardian TextSans;">
+  {{c.data.desc}} 
+</div>
+<div class="container"  style="padding-left:53px;margin:0;padding-top:10px;">
+  <div class="row">
+    <div class="col-md-2" ng-if="data.app_link" style="padding-right:0px;padding-left:0px;width:9.66%">
+ 
+      <!-- Commented by vikram to remove buttons-->
+     <!-- <button type="button" class="btn btn-primary btnapp"  ng-click="c.go_to_appliaction(c.data.app_link)" style="background-color:#00AECF;border:none;">
+        <div class="application_txt">Launch App</div></button> */
+
+    </div>
+    <div class="col-md-2" style="padding-left:0px;width:14.66%">
+      <div class="button" style="border:1px solid #00AECF" ng-click="c.request_access(data.request_access)" > -
+        <div class="request_txt" >
+          Request Access?
+        </div> -->
+      </div> 
+    </div>  
+  </div>
+</div>
+
+
+
+ <div style="border: solid;display: flex;">
+    <div style="width: 60%;box-sizing: border-box;border: solid blue;">
+      <div class="preview_txt" style="font: normal normal normal 18px/21px Guardian TextSans;color: #073262;">
+        Preview 
+      </div>
+
+      <div class="clickable-image"style=" padding-bottom: 3rem;display: flex;">
+      
+       <!-- <video id="vl" title="Vedio Link" ng-mouseenter="enlargeImg(this)" style="width:30%;">-->
+       <!-- <video width="30%" height="10%" controls>
+      <source  src="/sys_attachment.do?sys_id={{data.video_link}}" type="video/mp4">
+   </video>-->
+        <div style="background-color: rgba(120,120,120,0.5);width: 150px;height: 100px;">
+          
+        </div>
+        <div style="background-color: rgba(120,120,120,0.5);width: 150px;height: 100px;margin-left: 5px;">
+          
+        </div>
+      
+       <!--<img id="myImg"  title="Zoom image" class="mySlides"   ng-mouseenter="enlargeImg(this)"  src="/sys_attachment.do?sys_id={{data.image1}}" style="width:30%;">
+
+        <img id="myImg2" title="Zoom image" class="mySlides1"  ng-mouseenter="enlargeImg(myImg2)" src="/sys_attachment.do?sys_id={{data.image2}}" style="width:30%;">-->
+
+<!-- <img id="myImg3" title="Zoom image" class="mySlides2"  ng-mouseenter="enlargeImg(myImg3)" src="/sys_attachment.do?sys_id={{data.image3}}" style="width:30%;"> -->
+      </div>
+
+      <div class="tab" style="color: #5FC8D7;" >
+        <button class="tablinks" ng-click="c.openCity(event, 'summary')" ><span class="tab_txt" style="font: normal normal normal 16px/21px Guardian TextSans;letter-spacing: 0px;color: #00AECF;opacity: 1;">Summary</span></button>
+        <button class="tablinks" ng-click="c.openCity(event, 'keySummary')" id="defaultOpen" ><span class="tab_txt" style="font: normal normal normal 16px/21px Guardian TextSans;letter-spacing: 0px;color: #00AECF;opacity: 1;">Key features</span></button>
+        <button class="tablinks" ng-click="c.openCity(event, 'keyArtifacts')" ><span class="tab_txt" style="font: normal normal normal 16px/21px Guardian TextSans;letter-spacing: 0px;color: #00AECF;opacity: 1;">Tech Stack</span></button>
+
+      </div>
+
+      <div class="tabcontent" id="summary" style="font: normal normal normal 13px/26px Guardian TextSans;letter-spacing: 0px;color: #111111;opacity: 1;">{{data.summary}}</div>
+
+      <div class="tabcontent" id="keySummary" style="font: normal normal normal 13px/26px Guardian TextSans;letter-spacing: 0px;color: #111111;opacity: 1;">
+
+        <ul   ng-repeat="x in c.keySummary"> <li>{{x}}</li></ul>
+
+      </div>
+
+      <div class="tabcontent" id="keyArtifacts" style="font: normal normal normal 13px/26px Guardian TextSans;letter-spacing: 0px;color: #111111;opacity: 1;">
+        <ul    ng-repeat="x in c.keyArtifacts"> <li>{{x}}</li></ul>
+      </div>
+     <!-- <div class="attachment_txt" ng-if="data.attachment1 !='no'||data.attachment2 !='no'">
+
+        Attachments<br>
+      </div>-->
+      <div ng-if="data.attachment1 !='no'">
+        <ul>
+          <li>  
+            <a href="/sys_attachment.do?sys_id={{c.data.attachment1SysID}}">&nbsp;{{c.data.attachment1Name}}</a><img src={{data.attachment1Type}} width="15" height="18"/><br></li>
+        </ul>
+      </div>
+
+      <div ng-if="data.attachment2 !='no'">
+        <ul>
+          <li>  
+            <a href="/sys_attachment.do?sys_id={{c.data.attachment2SysID}}">&nbsp;{{c.data.attachment2Name}}</a><img src={{data.attachment2Type}} width="15" height="18"/>
+          </li></ul>
+      </div>
+
+
+      <form style="">
+        <div class="comment" style="padding-top: 4rem;font: normal normal normal 18px/21px Guardian TextSans;letter-spacing: 0px;color: #00AECF;opacity: 1;">${Add your comments}</div>
+        <textarea  ng-model="c.comments" class="form-control"   id="comment"></textarea>
+        <!--<input type="submit" id="submit" value="Submit" ng-model="data.submit" class="btn btn-primary" style="margin-top: 5px;" ng-disabled="!data.comments" ng-click=submitFeedback()/>-->
+        <div class="pull-right" style="padding-top:10px;">
+          <img class="attach" src="attachment-clip.svg"/>
+          <button type="button" class="btn btn-primary " ng-click="c.submitFeedback()" style="background-color:#00AECF;border:none;"><div class="post_btn">Post</div></button>
+        </div> 
+        <div class="parent ng-scope" ng-repeat="feedback in data.commentsFeed" style="">
+          <div class="hello ng-scope">
+            <!--<div ng-repeat="feedback in data.commentsFeed" style="margin-bottom: 1em"> -->
+            <div>
+              <span class="comment_box_head">{{feedback.user}}</span>
+              <span class="comment_align"> Posted {{feedback.sysCreatedOn}}</span><br>
+              <span class="user_designation">{{feedback.designation}}</span><br>
+
+              <div class="comment_mentioned">{{feedback.comment}}</div>
+
+
+            </div>
+          </div>
+        </div>
+      </form>
+   </div>
+   <div style="width: 40%;box-sizing: border-box;position: relative;">
+      <div style="display: flex;justify-content: flex-end;">
+    <div class="share_txt"  style="padding-right: 20px;padding-left: 20px;" ng-click="c.showDetails()">
+
+        <img class="share" src="/x_ggisu_cdp_app_st.share_white.png"  /> 
+        <span style="font:normal normal normal 12px/17px Guardian TextEgyp;letter-spacing: 0px;color: #FFFFFF;opacity: 1;">Share</span>
+      </div>
+      <div class="fav_txt1" style="padding-left: 0rem;" ng-if="data.like_dislike==='Like'" ng-click="c.deleterec()" > <img class="heart"  src="/x_ggisu_cdp_app_st.like_icon.png"  /><span class="fav_icon"    style="font: normal normal 600 12px/14px Arial;">Added to favorites</span></div>
+      <div class="fav_txt" style="padding-left: 0.8rem;height: 42px;width: 15rem;margin-left: 10px;" ng-if="data.like_dislike==='Dislike'||data.like_dislike===''"  ng-click="c.addtofavourites()"> <img src="/x_ggisu_cdp_app_st.like_icon.png" class="heart"   /><span class="fav_icon" style="font: normal normal normal 12px/17px Guardian TextEgyp;letter-spacing: 0px;color: #FFFFFF;opacity: 1;">Add to My Apps</span></div>
+      <div style="margin-left: 10px;"><span class="rating_txt" style="font: normal normal normal 12px/17px Guardian TextEgyp;letter-spacing: 0px;color: #011122;
+opacity: 1;"><b>${Rate this app:}</b><br><uib-rating sp-rating ng-model="data.rating" ng-click="giveRating()" max="5" aria-label="${Rate this article}" state-on="'fa fa-star kb-star-on'" state-off="'fa fa-star kb-star-off'"></uib-rating> &nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+
+    </div>
+      <div class="card" style="position: absolute;top: 20px;left: 10px;right: 0px;height: 231px;background: transparent linear-gradient(180deg, #00AECF 0%, #011122 100%) 0% 0% no-repeat padding-box;opacity: 1;">
+        <div class="card-block">
+
+          <div class="card-title" style="font: normal normal normal 16px/21px Guardian TextSans;letter-spacing: 0px;color: #60C7D7;opacity: 1;">
+            Contact Details
+          </div>
+
+          <form>
+
+            <div class="card-body">
+              <div class="row"  ng-if="data.record2" style="margin-bottom: 5px;" >
+
+                <label class="form_text col-md-6" style="font: normal normal normal 14px/21px Guardian TextSans;letter-spacing: 0px;color: #FFFFFF;opacity: 1; margin-top: 6px;"for="Approverdata">{{data.label2}}:</label>
+                <label class="form_val" style="font: normal normal normal 14px/21px Guardian TextSans; color: white;"name="Approverdata2">{{data.record2}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record3" style="margin-bottom: 5px;">
+                <label class="form_text col-md-6"style="font: normal normal normal 14px/21px Guardian TextSans;letter-spacing: 0px;color: #FFFFFF;opacity: 1;margin-top: 6px;" for="nextrevdate" >{{data.label3}}:</label>
+                <label class="form_val" style="font: normal normal normal 12px/34px Arial; color: white;"name="Approverdata3">{{data.record3}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record4" style="white-space: nowrap; margin-bottom: -19px;">
+                <label class="form_text col-md-6"style="font: normal normal normal 14px/21px Guardian TextSans;letter-spacing: 0px;color: #FFFFFF;opacity: 1;margin-top: 6px;" for="technicalowner" >{{data.label4}}:</label>
+                <label class="form_val" style="font: normal normal normal 12px/34px Arial; display: inline-block; vertical-align: top; margin-left: 10px; color: white;"name="Approverdata4">{{data.record4}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record10" style="white-space: nowrap; margin-bottom: -19px;">
+                <label class="form_text col-md-6" style="font: normal normal normal 14px/21px Guardian TextSans;letter-spacing: 0px;color: #FFFFFF;opacity: 1;margin-top: 6px;"for="technicalowneremail" >{{data.label10}}:</label>
+                <label class="form_val" style="font: normal normal normal 12px/34px Arial;display: inline-block; vertical-align: top; margin-left: -50px; color: white;"name="Approverdata6">{{data.record10}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record5"style="white-space: nowrap; margin-bottom: -19px;">
+                <label class="form_text col-md-6" style="font: normal normal normal 14px/21px Guardian TextSans;letter-spacing: 0px;color: #FFFFFF;opacity: 1;margin-top: 6px;"for="businessowner" >{{data.label5}}:</label>
+                <label class="form_val" style="font: normal normal normal 12px/34px Arial display: inline-block; vertical-align: top; margin-left: 10px;color: white;"name="Approverdata5">{{data.record5}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record9"style="white-space: nowrap; margin-bottom: -19px;">
+                <label class="form_text col-md-6" style="font: normal normal normal 14px/21px Guardian TextSans;letter-spacing: 0px;color: #FFFFFF;opacity: 1;  margin-top: 6px;"for="businessowneremail" >{{data.label9}}:</label>
+                <label class="form_val" style="font: normal normal normal 12px/34px Arial display: inline-block; vertical-align: top; margin-left: -50px;color: white;"name="Approverdata6">{{data.record9}}</label><br><br>
+              </div>
+            <!--  <div class="row" ng-if="data.record8"style="white-space: nowrap;">
+                <label class="form_text col-md-6" style="font: normal normal normal 14px/21px Guardian TextSans;letter-spacing: 0px;color: #FFFFFF;opacity: 1;"for="infosecrev" >{{data.label8}}:</label>
+                <a class="form_val" style="font: normal normal normal 10px/20px Arial display: inline-block; vertical-align: top; margin-left: -30px;color: white;"ng-href="{{data.record8}}" target="_blank">Click here for video link</a><br><br>
+              </div> -->
+              <div class="row" ng-if="data.record7"style="white-space: nowrap; margin-bottom: -19px;">
+                <label class="form_text col-md-6" style="font: normal normal normal 14px/21px Guardian TextSans;letter-spacing: 0px;color: #FFFFFF;opacity: 1;"for="infosecreviewer" >{{data.label7}}:</label>
+                <label class="form_val"style="font: normal normal normal 12px/34px Arial display: inline-block; vertical-align: top; margin-left: 10px;color: white;" name="Approverdata7">{{data.record7}}</label><br><br>
+              </div>
+            </div>
+           <!-- <button type="button" class="btn btn-primary btnapp"  ng-click="c.go_to_appliaction(c.data.app_link)" style="background-color:#00AECF;border:none; margin-left: 179px; margin-top: 5px;">
+        <div class="application_txt" >Launch App</div></button> -->
+            
+
+          </form>
+      <!--    <div class="card-title">
+            Key developers
+          </div> -->
+       <!--   <div class="card-body">
+            <div class="row">
+              <table>
+                <tr>
+                  <td>
+                    <img src="/sys_attachment.do?sys_id={{data.pdevImage}}" class="circular_image"/>
+                  </td>
+                  <td>
+                    <b><div class="key_dev">&nbsp;&nbsp;{{data.pdevName}} </div></b>
+                    <div class="key_devlop">&nbsp;&nbsp;{{data.pdevDescription}}</div>
+                    <div class="key_chat"style="padding-left: 8px;"><a id="$(jvar_n)" ng-click="c.invokeChatPrimary()" href="">Start chat</a></div>
+                </tr>
+
+                <tr>
+                  <td>
+                    <img src="/sys_attachment.do?sys_id={{data.sdevImage}}" class="circular_image"/>
+                  </td>
+                  <td>
+                    <b><div class="key_dev">&nbsp;&nbsp;{{data.sdevName}}</div></b>
+                    <div class="key_devlop">&nbsp;&nbsp;{{data.sdevDescription}}</div>
+                    <div class="key_chat"style="padding-left: 8px;"><a id="$(jvar_n)" ng-click="c.invokeChatSecondary()" href="">Start chat</a></div>
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+          </div> -->
+        </div>
+      </div>
+   </div>
+</div>
+
+  
+
+<!--model for share-->
+
+<!--<div class="modal fade"  id="myModal" role="dialog" >
+  <div class="modal-dialog modal-sm"> 
+    <div class="modal-content" style="width: 297px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+        <h4 class="modal-title" style="font: normal normal normal 12px/17px Guardian TextEgyp;letter-spacing: 0px;color: #FFFFFF;opacity: 1;">Share</h4>
+      </div>
+      <div class="modal-body">
+        <span>Share with (Name/OHR)</span>
+        <sn-record-picker ng-required="true" sn-model="c.share_with" field="c.share_with" table="'sys_user'"  display-field="'name'"  value-field="'sys_id'" search-fields="'name,user_name'" page-size="100"   default-query ="'active=true'"  ></sn-record-picker> 
+        <span> Enter Comments</span><br>
+        <textarea row="5" cols="38"  id="comments" ng-model="c.modal_comments" >
+        </textarea>
+
+
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default"  ng-click="c.share(c.app)" style="background:#00AECF 0% 0% no-repeat padding-box; margin-left: -10px;">Share</button>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>-->
+  <!--end-->
+  
+
+
+]]></template>
+    </sp_widget>
+</record_update>

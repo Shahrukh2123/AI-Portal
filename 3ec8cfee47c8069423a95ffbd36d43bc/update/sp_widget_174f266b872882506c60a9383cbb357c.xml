@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>//added by vikram
+.logo {          
+  position: absolute;
+    width: 263.09px;
+    height: 97px;
+    left: -3rem;
+        }
+
+.logo-widget {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+//
+
+.card
+{
+  text-align: center;
+  padding:40rem;
+ 
+}
+.card-body
+{
+  /*position: relative;
+    top: -9rem;
+    left: 2rem;
+  color:#ffffff;
+  height: 4rem;*/
+  
+  
+}
+.butcal
+{
+//  border: 1px solid #073262;
+ /* color:#fff;*/
+  //padding:5px 10px;
+  //transition: all 0.5s;
+  //cursor: pointer;
+   //border-radius: 20px;
+  //  border: 0.1rem solid #073262;
+   // padding: 0.5rem 1rem;
+    transition: none;
+    left: 44%;
+    //cursor: pointer;
+    align-items: center;
+    top: 81%;
+    position: fixed;
+    //border-radius: 2rem;  
+
+}
+
+.card-img-top
+{
+ /*box-shadow: 0 20px 25px 0 rgba(7, 50, 98, 0.2), 0 20px 30px 0 rgba(7, 50, 98, 0.19);*/
+  text-align: center;
+  // border-radius: 50px;
+}
+.butcal span {
+  
+  cursor: pointer;
+  border:none;
+   background-color: Transparent;
+    background-repeat:no-repeat;
+opacity: 0.65;
+  position: relative;
+  transition: 0.5s;
+}
+
+.butcal span:after {
+ 
+  position: absolute;
+   border:none;
+   background-color: Transparent;
+    background-repeat:no-repeat;
+opacity: 0.65;
+  transition: 0.5s;
+}
+.butcal:focus span:after{
+  border:none;
+   background-color: Transparent;
+    background-repeat:no-repeat;
+    overflow: hidden;
+    outline:none;
+}
+a:focus{
+  box-shadow:none !important;
+  outline:none !important;
+}
+
+
+//Commented by Vikram
+/*
+.butcal:hover span {
+  padding-right: 25px;
+}
+*/
+.butcal:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.card img
+{
+  width:100%;
+ /* height: 160px;*/
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>ai_portal_enroll_page</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>AI Portal Enroll page</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+var answer1 = false;
+var loggedInUser = gs.getUserID();
+var userGr = new GlideRecord('sys_user');
+userGr.addQuery('manager', loggedInUser);
+userGr.setLimit(1);
+userGr.query()
+if(userGr.next()) {
+  answer1 = true;
+}
+data.loggedInManager=answer1;
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>703329553</sys_created_by>
+        <sys_created_on>2024-03-01 10:43:42</sys_created_on>
+        <sys_id>174f266b872882506c60a9383cbb357c</sys_id>
+        <sys_mod_count>89</sys_mod_count>
+        <sys_name>AI Portal Enroll page</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_widget_174f266b872882506c60a9383cbb357c</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-03-14 07:55:31</sys_updated_on>
+        <template><![CDATA[//added by vikram
+<!--<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+         <video width="100%" height="100%" style="margin-left: -156px;width: 1432px;margin-top: -36px;" controls="" autoplay="">
+      <source src="/GenAIMotherVideo.mp4" type="video/mp4" class="mySlides" style="width:25%" >
+   </video>
+    </div>
+    
+  </div>
+ 
+</div>-->
+
+ 
+<!--<div class="logo-widget">
+        <img src="x_ggisu_cdp_app_st.genpactlogoaiportal.png" alt="Genpact Logo" class="logo">
+</div> -->
+//
+
+<div>
+<!-- your widget template -->
+  
+  <div class="card " >
+   <a href="/clientzero?id=ai_store_home" class="butcal"><span><img src="x_ggisu_cdp_app_st.exploreaiportal.png"/></span></a>
+  <div class="card-body">
+    <h5 class="card-title" style="font-weight: 600;margin-bottom:5px"></h5>
+    <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+   <!-- <a href="aiportal" class="butcal"><span>Explore -></span></a>--!> 
+  </div>
+</div>
+  
+  
+  
+</div>]]></template>
+    </sp_widget>
+</record_update>

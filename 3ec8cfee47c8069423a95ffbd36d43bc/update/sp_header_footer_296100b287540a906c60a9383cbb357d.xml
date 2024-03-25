@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_header_footer">
+    <sp_header_footer action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.isc-footer{&#13;
+	background-color:#01152B;&#13;
+  	padding:5px;&#13;
+    color:white;&#13;
+}&#13;
+&#13;
+.isc-footer a:hover{&#13;
+	color:white;&#13;
+    cursor:pointer;&#13;
+}&#13;
+.isc-footer a:visited{&#13;
+	color:white;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>ai_footer</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>AI Footer</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <static>false</static>
+        <sys_class_name>sp_header_footer</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-15 03:53:51</sys_created_on>
+        <sys_id>296100b287540a906c60a9383cbb357d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>AI Footer</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_header_footer_296100b287540a906c60a9383cbb357d</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-15 03:53:51</sys_updated_on>
+        <template><![CDATA[<div class="container-fluid isc-footer">
+  <div class="row">
+    <div class="col-xs-6">
+      ${© <span ng-bind-html="::data.year"></span> Genpact. All rights reserved. Powered by ServiceNow.}
+    </div>
+    <!--<div>
+    <widget id="sn-va-sp-widget"></widget>
+	</div> -->
+  </div>
+</div> ]]></template>
+    </sp_header_footer>
+</record_update>

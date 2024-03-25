@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_email">
+    <sys_script_email action="INSERT_OR_UPDATE">
+        <name>getapprovalaicomment</name>
+        <new_lines_to_html>false</new_lines_to_html>
+        <script><![CDATA[(function runMailScript(/* GlideRecord */ current, /* TemplatePrinter */ template,
+          /* Optional EmailOutbound */ email, /* Optional GlideRecord */ email_action,
+          /* Optional GlideRecord */ event) {
+
+          // Add your code here
+	var baseLink = gs.getProperty('glide.servlet.uri') + 'nav_to.do?uri=' + current.getTableName() + '.do?sys_id=' + current.getValue('sys_id') ;//+ '%26sysparm_input=';
+var approvalLink = baseLink + '%26commentapproved';
+var rejectLink = baseLink + '%26commentrejected';
+		var answer = '<a href="' + approvalLink + '">Click here to approve</a> || <a href="' + rejectLink + '">Click here to reject</a>';
+template.print(answer);
+		//gs.log(current.u_app_name);
+
+})(current, template, email, email_action, event);]]></script>
+        <sys_class_name>sys_script_email</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-15 02:08:55</sys_created_on>
+        <sys_id>3b796b62875cc6906c60a9383cbb3541</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>getapprovalaicomment</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sys_script_email_3b796b62875cc6906c60a9383cbb3541</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-15 02:08:55</sys_updated_on>
+    </sys_script_email>
+</record_update>

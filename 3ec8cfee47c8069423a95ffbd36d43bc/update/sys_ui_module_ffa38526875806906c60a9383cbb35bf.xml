@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_module">
+    <sys_ui_module action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <application display_value="App Comment">bfa38526875806906c60a9383cbb35bc</application>
+        <filter/>
+        <name>App Comments</name>
+        <order/>
+        <path/>
+        <path_relative_to_root>false</path_relative_to_root>
+        <roles>x_ggisu_cdp_app_st.app_comment_user</roles>
+        <sys_class_name>sys_ui_module</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-14 14:03:54</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>ffa38526875806906c60a9383cbb35bf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>App Comments</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sys_ui_module_ffa38526875806906c60a9383cbb35bf</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-14 14:03:54</sys_updated_on>
+        <table>x_ggisu_cdp_app_st_app_comment</table>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+    </sys_ui_module>
+</record_update>

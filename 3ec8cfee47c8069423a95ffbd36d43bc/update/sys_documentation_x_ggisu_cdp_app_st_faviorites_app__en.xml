@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="" label="Faviorites App" language="en" table="x_ggisu_cdp_app_st_faviorites_app">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element/>
+            <help/>
+            <hint/>
+            <label>Faviorites App</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_faviorites_app</name>
+            <plural>Faviorites Apps</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-02-14 09:57:09</sys_created_on>
+            <sys_id>193b882a8790c2906c60a9383cbb35d1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Faviorites App</sys_name>
+            <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+            <sys_update_name>sys_documentation_x_ggisu_cdp_app_st_faviorites_app__en</sys_update_name>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-02-14 09:57:09</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

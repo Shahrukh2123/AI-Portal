@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <human_readable_url_structure/>
+        <id>forum</id>
+        <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
+        <public>false</public>
+        <roles/>
+        <seo_script/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>703329607</sys_created_by>
+        <sys_created_on>2024-03-07 10:58:39</sys_created_on>
+        <sys_id>204c6da9873cce106c60a9383cbb355c</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>forum</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_page_204c6da9873cce106c60a9383cbb355c</sys_update_name>
+        <sys_updated_by>703329607</sys_updated_by>
+        <sys_updated_on>2024-03-08 08:14:03</sys_updated_on>
+        <title>forum</title>
+        <use_seo_script>false</use_seo_script>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=204c6da9873cce106c60a9383cbb355c"/>
+</record_update>

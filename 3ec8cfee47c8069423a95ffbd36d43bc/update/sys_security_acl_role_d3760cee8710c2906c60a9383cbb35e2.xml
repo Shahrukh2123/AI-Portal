@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-14 09:36:32</sys_created_on>
+        <sys_id>d3760cee8710c2906c60a9383cbb35e2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_ggisu_cdp_app_st_quick_links.x_ggisu_cdp_app_st.quick_links_user</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_security_acl display_value="x_ggisu_cdp_app_st_quick_links">07760cee8710c2906c60a9383cbb35ca</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_d3760cee8710c2906c60a9383cbb35e2</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-14 09:36:32</sys_updated_on>
+        <sys_user_role display_value="x_ggisu_cdp_app_st.quick_links_user" name="x_ggisu_cdp_app_st.quick_links_user">6076c4ee8710c2906c60a9383cbb352f</sys_user_role>
+    </sys_security_acl_role>
+</record_update>

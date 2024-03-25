@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css>section.page{
+  overflow-y:hidden !important;
+  overflow-x:hidden;
+  background-image: url('/x_ggisu_cdp_app_st.smallnewaibackground.gif');
+  background-size:cover;
+  width: 100%;
+  height: auto;
+  position: relative;
+    border: none !important;
+    box-shadow: none !important;
+    font-family: Arial;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    /* background-size: 100%; */
+    background-position: center center;
+}
+
+header {
+            display: none;
+        }
+
+footer {
+            display: none;
+        }</css>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <human_readable_url_structure/>
+        <id>ai_portal_home</id>
+        <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
+        <public>false</public>
+        <roles/>
+        <seo_script/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>703329553</sys_created_by>
+        <sys_created_on>2024-03-01 10:46:54</sys_created_on>
+        <sys_id>dfefe6af872882506c60a9383cbb35ca</sys_id>
+        <sys_mod_count>20</sys_mod_count>
+        <sys_name>ai_portal_home</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_page_dfefe6af872882506c60a9383cbb35ca</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-03-14 10:16:11</sys_updated_on>
+        <title>AI Portal Home</title>
+        <use_seo_script>false</use_seo_script>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=dfefe6af872882506c60a9383cbb35ca"/>
+</record_update>

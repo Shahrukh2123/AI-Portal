@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_row">
+    <sp_row action="INSERT_OR_UPDATE">
+        <class_name/>
+        <order>1</order>
+        <semantic_tag/>
+        <sp_column/>
+        <sp_container display_value="Copypage123 - Test Page - Container 1">eb052559877486106c60a9383cbb35e7</sp_container>
+        <sys_class_name>sp_row</sys_class_name>
+        <sys_created_by>703329607</sys_created_by>
+        <sys_created_on>2024-03-06 16:23:47</sys_created_on>
+        <sys_id>ed1d619187f886106c60a9383cbb3503</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_row_ed1d619187f886106c60a9383cbb3503</sys_update_name>
+        <sys_updated_by>703329607</sys_updated_by>
+        <sys_updated_on>2024-03-06 16:23:47</sys_updated_on>
+    </sp_row>
+</record_update>

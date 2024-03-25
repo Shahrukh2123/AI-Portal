@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_theme">
+    <sp_theme action="INSERT_OR_UPDATE">
+        <css_variables/>
+        <footer display_value="AI Footer">296100b287540a906c60a9383cbb357d</footer>
+        <footer_fixed>true</footer_fixed>
+        <header display_value="Stock Header">bf5ec2f2cb10120000f8d856634c9c0c</header>
+        <name>AI Theme</name>
+        <navbar_fixed>true</navbar_fixed>
+        <sys_class_name>sp_theme</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-15 03:52:12</sys_created_on>
+        <sys_id>bc11ccbe87140a906c60a9383cbb35bf</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>AI Theme</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_theme_bc11ccbe87140a906c60a9383cbb35bf</sys_update_name>
+        <sys_updated_by>703318399</sys_updated_by>
+        <sys_updated_on>2024-03-03 04:42:29</sys_updated_on>
+        <turn_off_scss_compilation>false</turn_off_scss_compilation>
+    </sp_theme>
+</record_update>

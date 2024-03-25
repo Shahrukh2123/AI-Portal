@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="u_primary_developer_name" label="Primary developer name" language="en" table="x_ggisu_cdp_app_st_cdp_portal">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>u_primary_developer_name</element>
+            <help/>
+            <hint/>
+            <label>Primary developer name</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <plural>Primary developer names</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-02-27 10:11:10</sys_created_on>
+            <sys_id>511bc76a87a44e14a3bb8776cebb3514</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Primary developer name</sys_name>
+            <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+            <sys_update_name>sys_documentation_x_ggisu_cdp_app_st_cdp_portal_u_primary_developer_name_en</sys_update_name>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-02-27 10:11:10</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="status" table="x_ggisu_cdp_app_st_cdp_portal" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>status</element>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:27:37</sys_created_on>
+            <sys_id>47ec2dec97780e106ca8f0c6f053af51</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>status</sys_name>
+            <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+            <sys_update_name>sys_choice_x_ggisu_cdp_app_st_cdp_portal_status</sys_update_name>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:27:37</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>status</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Build</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:27:37</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>cddc216c97b80e106ca8f0c6f053afca</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:27:37</sys_updated_on>
+            <value>build</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>status</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>In-discussion</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:27:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c8fc6de497b80e106ca8f0c6f053afed</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:27:56</sys_updated_on>
+            <value>indiscussion</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>status</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Not Started</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:28:17</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>510d692097f80e106ca8f0c6f053af20</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:28:17</sys_updated_on>
+            <value>not_started</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>status</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Testing</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:28:27</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>591da92097f80e106ca8f0c6f053af44</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:28:27</sys_updated_on>
+            <value>testing</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

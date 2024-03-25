@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_analytics_bucket">
+    <sys_analytics_bucket action="INSERT_OR_UPDATE">
+        <analytics_channel display_value="web">6496ef61c7001010393d265c95c260b9</analytics_channel>
+        <application_name>portalCDP</application_name>
+        <bucket_document_id>b61e876e474c069423a95ffbd36d4325</bucket_document_id>
+        <bucket_metadata/>
+        <bucket_table_name>sp_portal</bucket_table_name>
+        <bucket_type>service_portal</bucket_type>
+        <enable_unauthenticated_user_tracking>false</enable_unauthenticated_user_tracking>
+        <enabled>true</enabled>
+        <internal_name_for_index>x_ggisu_cdp_app_st.sp_portal.b61e876e474c069423a95ffbd36d4325</internal_name_for_index>
+        <sys_class_name>sys_analytics_bucket</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-02 13:53:44</sys_created_on>
+        <sys_id>024ecfae474c069423a95ffbd36d4301</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>portalCDP</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sys_analytics_bucket_024ecfae474c069423a95ffbd36d4301</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-02 13:53:44</sys_updated_on>
+    </sys_analytics_bucket>
+</record_update>

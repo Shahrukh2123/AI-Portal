@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">6bb7e9ed8778ce106c60a9383cbb3525</sp_column>
+        <sp_widget display_value="Forums to connect">50cc99e987b0ce106c60a9383cbb3531</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>703329607</sys_created_by>
+        <sys_created_on>2024-03-07 10:39:02</sys_created_on>
+        <sys_id>91c7aded8778ce106c60a9383cbb351e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_instance_91c7aded8778ce106c60a9383cbb351e</sys_update_name>
+        <sys_updated_by>703329607</sys_updated_by>
+        <sys_updated_on>2024-03-07 10:39:02</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=91c7aded8778ce106c60a9383cbb351e"/>
+</record_update>

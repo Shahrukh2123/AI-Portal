@@ -1,0 +1,1198 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($scope, spUtil, $timeout, spAriaUtil,spModal) {
+  /* widget controller */
+  var c = this;
+	c.keySummary = c.data.keySummaryText;
+	c.keyArtifacts = c.data.keyArtifactsText;
+	$scope.passCountry = function(_src)
+	{
+		    alert(_src);
+	};
+	
+	$scope.$watch("data.rating", function() {
+		if ($scope.data.rating && !$scope.data.allowFeedback)
+			$scope.server.update();
+	});
+	
+	$scope.$watch("data.response", function() {
+		if ($scope.data.response) {
+			$timeout(function() {
+				$scope.data.response = "";
+			}, 2000);
+		}
+	});
+	
+	//Tab content
+	c.openCity= function (evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+		
+  }
+		
+	 tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+		//spUtil.addInfoMessage(tablinks[i].className)
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+	if(tabName=="summary")	{
+  document.getElementById(tabName).style.display = "block";
+	//document.getElementsByClassName('tab_txt').style.font.weight = "bold";
+ // tablinks[0].className = tablinks[0].className.replace(" active", "")
+	//	$scope.risktabstate = "In Progress";
+	tablinks[0].className += " active";
+}
+	if(tabName=="keySummary")	{
+	//	$scope.risktabstate = "Draft";
+  document.getElementById(tabName).style.display = "block";
+  tablinks[1].className += " active";
+}
+	if(tabName=="keyArtifacts")	{
+	//	$scope.risktabstate = "Processed";
+  document.getElementById(tabName).style.display = "block";
+
+	tablinks[2].className += " active";
+}
+}	
+
+tablinks = document.getElementsByClassName("tablinks");
+  tablinks[0].className+= " active";
+	 document.getElementById("summary").style.display = "block";
+			
+
+	//share function
+		c.share_with={
+		//value:c.data.share_with,
+		name:'share_with'
+	}
+	c.showDetails = function(){
+		
+           // c.app = app;
+           $('#myModal').modal('show');
+    };
+	
+	c.go_to_appliaction=function(s){
+		
+		//location.href = (s,'_blank');
+		 window.open(s, '_blank');
+	}
+	
+		c.request_access=function(m){
+		
+		 window.open(m, '_blank');
+	}
+	c.share=function(){
+		
+		c.data.share_with=c.share_with.value;
+		c.data.comments=c.modal_comments;
+		//c.data.app_name=t;
+		
+		c.server.update().then(function(){
+			var redirectTo = "/portal360?id=app_details&aid=" + c.data.ans;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);
+		})
+	window.setTimeout(restartscreen, 3000);
+	}
+	
+	c.addtofavourites=function(){
+		c.data.app_id='add to favorite';
+		//c.data.app_id=i;
+		//alert(c.data.app_id);
+		
+		c.server.get({
+                app_id: c.data.app_id,
+            }).then(function(response) {
+                c.data.exceed = response.data.limitExceeded;
+			//alert(c.data.exceed);
+			if(c.data.exceed =='Yes'){
+				
+				
+				spModal.open({
+			title: 'Notification',
+			message: 'You can only add 5 apps to My Favorites section at a time. The oldest app will be removed from My Favorite section as you add new apps. Are you sure you want to add this app to your favourites?',
+			buttons: [
+		
+				{label:'Add to favorites', primary: true},
+				{label:'Cancel', cancel: true}
+			]
+			}).then(function() {
+			c.server.get({
+                action: "ModifyFav",
+							  app_id: c.data.app_id
+            }).then(function(response) {
+            });
+					top.window.location.reload();
+		}, function() {
+				top.window.location.reload();
+	
+		})
+	
+
+							 }else{
+								 var redirectTo = "/portal360?id=app_details&aid=" + c.data.ans;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);
+							 }
+	/*	c.server.update().then(function() {
+		var redirectTo = "/portal360?id=app_details&aid=" + c.data.ans;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);*/
+		
+		});
+	 
+
+		
+	}
+c.deleterec = function() {
+		uiActionDelete();
+
+	};
+
+	uiActionDelete = function() {
+c.data.action= "delete";
+		c.server.update().then(function() {
+			var redirectTo =  "/portal360?id=app_details&aid=" + c.data.ans;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);
+		});
+
+		
+
+		
+	};
+
+		
+	$scope.storedLike = function(){
+	//	alert(c.data.likeStatus);
+		//alert(document.getElementById("likeIcon").style.color);
+		
+		if(c.data.likeStatus == "like")
+			{
+					document.getElementById('likeIcon').style.color='blue';
+				//	document.getElementById('likeIcon').style.cursor='default';
+				//	document.getElementById('likeIcon').style.pointerEvents = "none";
+					document.getElementById('likeIcon').disabled=false;
+		
+			}
+		
+		if(c.data.likeStatus == "dislike")
+			{
+		//		alert("here");
+					document.getElementById('likeIcon').style.color='black';
+				//	document.getElementById('likeIcon').style.cursor='default';
+				//	document.getElementById('likeIcon').style.pointerEvents = "none";
+					document.getElementById('likeIcon').disabled=false;
+		
+			}
+	}
+	
+	
+	$scope.like =function(){
+
+			c.data.likeApp = "likeApp";
+			
+			if(c.data.likeStatus == "like")
+			{
+				document.getElementById('likeIcon').style.color='blue';
+			}
+			else
+			{
+					document.getElementById('likeIcon').style.color='black';
+			}
+		
+		$scope.server.update().then(function() {
+			c.data.likeApp = undefined;
+						var redirectTo = "/portal360?id=app_details&aid=" + c.data.ans;
+						setTimeout(function(){
+						top.window.location = redirectTo;
+					}, 2000);
+		});
+		
+	}
+	
+	
+	
+	$scope.giveRating =function(){
+
+			c.data.rateApp = "rateapp";
+			$scope.server.update().then(function() {
+			c.data.rateApp = undefined;
+						var redirectTo = "/portal360?id=app_details&aid=" + c.data.ans;
+						setTimeout(function(){
+						top.window.location = redirectTo;
+						}, 2000);
+		});
+		
+	}
+	
+	
+	
+	c.submitFeedback = function() {
+		c.data.comments=c.comments;
+		c.data.action="submit";
+		//alert("Thank you submitting request");
+		$scope.server.update().then(function() {
+			//c.data.action = undefined;
+			var redirectTo = "/portal360?id=app_details&aid=" + c.data.ans;
+			
+					setTimeout(function(){
+			top.window.location = redirectTo;
+					}, 2000);
+		});
+	}
+	
+	
+	c.invokeChatPrimary = function()
+	{
+		var prefix='https://teams.microsoft.com/l/chat/0/0?users='+c.data.pdevEmail;
+		//var prefix = 'msteams:/1/chat/0/0?users=nishant.kheterpal@genpact.com';
+    window.open(prefix);
+	};
+	
+	c.invokeChatSecondary = function()
+	{
+		var prefix='https://teams.microsoft.com/l/chat/0/0?users='+c.data.sdevEmail;
+		//var prefix = 'msteams:/1/chat/0/0?users=nishant.kheterpal@genpact.com';
+    window.open(prefix);
+	};
+	
+	
+	
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.container{
+  width:1333px;
+  margin:0;
+
+}
+.top-left {
+  position: absolute;
+  top: 68px;
+  left: 69px;
+  text-align: left;
+  font: normal normal normal 38px Arial;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+}
+
+.bottom-left{
+  text-align: left;
+  font: normal normal normal 29px Arial;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 0.79;
+}
+
+.parent{
+  border: 1px solid #ddd;
+  margin-bottom : 10px;
+  margin-top:56px;
+  background : white;
+  border-radius:4px;
+}
+
+.parent &gt; .hello{
+  padding: 15px;
+}
+
+summary {
+  color: #10548C;
+  font-family: Arial;
+}
+
+.tab {
+  overflow: hidden;
+  margin-bottom:10px;
+  border-bottom: 1px solid #ddd;
+  width:60%;
+  // background-color: #f1f1f1;
+}
+
+.tab button.active{
+  border-bottom: 2px solid #00AECF;
+  .tab_txt{
+    font-weight:bold;
+  }
+}
+/* Style the buttons inside the tab */
+.tab button {
+  // border-bottom: 3px solid #ddd;
+  background-color: inherit;
+  float: left;
+  border: 1px solid #fff;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 18px;
+  transition: 0.3s;
+  font-size: 17px;
+  // color:#798399;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  text-align: left;
+  font: normal normal normal 16px/28px Arial;
+  letter-spacing: 0px;
+  color: #575757;
+  opacity: 1;
+}
+/*body {
+  font-family: "SourceSansPro", Helvetica, Arial, sans-serif;
+  font-size: 14px!important;
+  line-height: 1.42857!important;
+  color: #01152b;
+  background-color: #ffffff;
+}
+*/
+
+
+
+h3 {
+  font-family: Arial;
+  color: #10548C;
+  margin-top:auto;
+}
+
+.rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.rate:not(:checked) &gt; input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) &gt; label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.rate:not(:checked) &gt; label:before {
+  content: '★ ';
+}
+.rate &gt; input:checked ~ label {
+  color: #ffc700;    
+}
+.rate:not(:checked) &gt; label:hover,
+.rate:not(:checked) &gt; label:hover ~ label {
+  color: #deb217;  
+}
+.rate &gt; input:checked + label:hover,
+.rate &gt; input:checked + label:hover ~ label,
+.rate &gt; input:checked ~ label:hover,
+.rate &gt; input:checked ~ label:hover ~ label,
+.rate &gt; label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.kb-star-on {
+  color: #F2C43B !important;
+  text-shadow: $fav-star-outline;
+}
+
+.kb-star-off {
+  color: $fav-star-color-off !important;
+  text-shadow: $fav-star-outline;
+}
+
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+  color: #4e4b4b;
+}
+
+.btn .badge {
+  position: relative;
+  top: 6px;
+}
+
+.alignDiv{
+  float: right;
+}
+
+.tdRight{
+  padding-left: 50px;
+  padding-right: 40px;
+  padding-top:40px;
+  float: right;
+}
+
+.tdLeft{
+  width: 65%;
+  padding-left:50px;
+  padding-top:20px;
+}
+
+.alignSpan{
+  float: right;
+}
+
+.circular_image {
+  border-radius:5px;
+  // background: #73AD21;
+  //padding: 20px;
+  width: 100px;
+  height: 110px;
+}
+
+
+.card{
+  box-shadow: 1px 1px 10px 2px #aaa;
+  width:inherit;
+  padding:5px
+}
+
+.card-primary{
+  background-color: #6c08a2;
+  border-color:#6c08a2;
+}
+
+.card-title{
+  text-align: left;
+  font: normal normal normal 18px/27px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+  padding-bottom:10px;
+  padding-left:15px;
+  padding-top: 15px;
+}
+.key_dev{
+  text-align: left;
+  font: normal normal normal 14px/28px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+}
+.key_devlop{
+  text-align: left;
+  font: normal normal normal 14px/28px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+}
+
+.key_chat{
+  text-align: left;
+  font: normal normal normal 14px/28px Arial;
+  letter-spacing: 0px;
+  color: #00AECF;
+}
+
+.text{
+  margin-left:auto;
+  font-size:13px;
+}
+
+.card-body{
+  padding:5px
+}
+
+.row {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h2{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#myImg, #myImg2, #myImg3 {
+  border-radius: 5px;
+  cursor: zoom-in;
+  transition: 0.3s;
+}
+
+#myImg:hover, #myImg2:hover, #myImg3:hover {opacity: 10.7;}
+
+
+.mySlides {
+  transition: -webkit-transform 0.25s ease;
+}
+
+.mySlides:active {
+  -webkit-transform: scale(2.8);
+}
+
+.mySlides1 {
+  transition: -webkit-transform 0.25s ease;
+}
+
+.mySlides1:active {
+  -webkit-transform: scale(3);
+}
+.mySlides2 {
+  transition: -webkit-transform 0.25s ease;
+}
+
+.mySlides2:active {
+  -webkit-transform: scale(3);
+}
+
+.created_as
+{
+  padding:10px;
+  text-align: left;
+  font: normal normal normal 15px/22px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  background: #D8D8D8 ;
+  border-radius: 3px;
+  //padding-right:30px;
+  //opacity: 0.35;
+}
+
+.average_rating{
+  text-align: left;
+  font: normal normal normal 15px/22px Arial;
+  letter-spacing: 0px;
+  color: #868686;
+  opacity: 1;
+}
+
+.app_name{
+  text-align: left;
+  font:  bold 48px/75px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+}
+
+.share{
+  width: 16px;
+  height: 14px;
+}
+.share_txt{
+  text-align: left;
+  font: normal normal 600 14px/19px Arial;
+  letter-spacing: 0px;
+  color: #64626A;
+  opacity: 1;
+  //background: #8E8C95 0% 0% no-repeat padding-box;
+  border: 0.6000000238418579px solid #8E8C95;
+  opacity: 1;
+  padding-left:17px;
+  padding-top:12px;
+  padding-bottom:12px;
+  padding-bottom:10px;
+}
+
+.fav_txt{
+  background: #EFEFEF 0% 0% no-repeat padding-box;
+  opacity: 1;
+  letter-spacing: 0px;
+  color: #173C5F;
+  opacity: 1;
+  padding-left:28px;
+  padding-top:5px;
+}
+.fav_txt1{
+  background: #EFEFEF 0% 0% no-repeat padding-box;
+  opacity: 1;
+  letter-spacing: 0px;
+  color: #173C5F;
+  opacity: 1;
+  padding-left:20px;
+  padding-top:5px;
+}
+.fav_icon{
+  text-align: left;
+  font: normal normal 600 14px/19px Arial;
+  color: #173C5F;
+}
+
+.rating_txt{
+  text-align: left;
+  font: normal normal 600 14px/27px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+}
+
+.preview_txt{
+ /* text-align: left;
+  font: normal normal normal 23px/36px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+  padding-bottom:10px;*/
+      text-align: left;
+    font: normal normal normal 23px/36px Arial;
+    letter-spacing: 0rem;
+    color: #171717;
+    opacity: 1;
+    margin-top: -38rem;
+    padding-bottom: 1rem;
+    padding-top: 18rem;
+}
+.clickable-image{
+ // padding-bottom:30px;
+  ///padding-bottom:32rem;
+  margin-top: -1rem;
+}
+
+.tab_txt{
+  text-align: left;
+  font: normal normal normal 18px/27px Arial;
+  letter-spacing: 0px;
+  color: #484C46;
+  opacity: 1;
+}
+
+.attachment_txt{
+  text-align: left;
+  font: normal normal normal 23px/36px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+  padding-top:20px;
+}
+.comment{
+  text-align: left;
+  font: normal normal normal 23px/36px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+  opacity: 1;
+  padding-top:20px;
+}
+
+.post_btn{
+text-align: left;
+font: normal normal 600 12px/19px Arial;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+}
+
+textarea.form-control {
+  height: 200px;
+}
+
+#submit{
+  //position:absolute;
+  //bottom:159px;
+  //right:480px;
+}
+
+.attach{
+  //position:absolute;
+  //bottom:169px;
+  //right:570px;
+  padding-right:10px;
+}
+
+.form_text{
+  text-align: left;
+  font: normal normal 600 14px/28px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+}
+
+.form_val{
+  text-align: left;
+  font: normal normal normal 14px/28px Arial;
+  letter-spacing: 0px;
+  color: #171717;
+}
+
+.comment_box_head{
+  text-align: left;
+  font: normal normal 600 18px/27px Arial;
+  letter-spacing: 0px;
+  color: #1B2327;
+  opacity: 1;
+}
+
+.comment_align{
+  text-align: right;
+  float: right;
+  font: normal normal normal 12px/24px Arial;
+  letter-spacing: 0px;
+  color: #87888C;
+  opacity: 1;
+}
+
+.user_designation{
+  text-align: left;
+  font: normal normal normal 12px/19px Arial;
+  letter-spacing: 0px;
+  color: #87888C;
+  opacity: 1;
+}
+
+.comment_mentioned{
+  text-align: left;
+  font: normal normal 600 14px/22px Arial;
+  letter-spacing: 0px;
+  color: #87888C;
+  opacity: 1;
+  padding-top:10px;
+}
+
+.heart{
+  width: 40px;
+  height: 40px;
+  padding:10px;
+  background: #EFEFEF;
+  border-radius: 12px;
+  opacity: 1;
+}
+
+.fa-heart-o{
+  font-size:17px;
+  padding-top:8px;
+  padding-left:10px;
+  padding-right:6px;
+  padding-bottom:15px;
+  background: #EFEFEF;
+  border-radius: 12px;
+  opacity: 1;
+}
+
+.button_txt{
+  text-align: left;
+  font: normal normal 600 14px/19px Arial;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+  //background: #89CFF0;
+  border-radius: 4px;
+  opacity: 1;
+}
+
+.app-desc{
+  text-align: left;
+  font: normal normal normal 15px/28px Arial;
+  letter-spacing: 0px;
+  color: #868686;
+  opacity: 1;
+
+}
+
+.request_txt{
+  text-align: left;
+  font: normal normal normal 17px/27px Arial;
+  letter-spacing: 0px;
+  color: #00AECF;
+  font-weight:bold;
+  opacity: 1;
+  padding-left:13px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+.application_txt{
+  text-align: left;
+  font: normal normal normal 17px/27px Arial;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cdpcoe_product_details</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>cdpcoe product details</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  data.summary ='';
+	data.keySummaryText ='';
+	data.keyArtifactsText='';
+	data.attachment1Name ='';
+	data.attachment1Type ='';
+	data.attachment1SysID ='';
+	data.attachment2Name ='';
+	data.attachment2Type ='';
+	data.attachment2SysID = '';
+	data.attachment1 = '';
+	data.attachment2 = '';
+	data.pass_like = false;
+	data.pass_dislike = false;
+	var limit =5;
+	data.ans=$sp.getParameter('aid');
+	var sysRecord = data.ans;
+	var grCard = new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+	grCard.addQuery('sys_id',sysRecord);
+	grCard.query();
+	
+	if(grCard.next()){
+		
+		data.name=grCard.name.getDisplayValue();
+		data.desc=grCard.short_description.getDisplayValue();
+		data.app_link=grCard.application_link.getDisplayValue();
+	 // var	created_as= grCard.u_app_created_as;
+		//data.likedislike=grCard.getDisplayValue('like_dislike')
+		//var developed_as= new GlideRecord('x_ggisu_sn_coe_por_coe_category');
+		//developed_as.addQuery('sys_id',created_as);
+		///developed_as.query();
+		///if(developed_as.next()){
+		//	data.app_created_as= developed_as.u_app_created_as.getDisplayValue();
+			//gs.addInfoMessage(data.app_created_as)
+			//} 
+		data.summary = grCard.getValue('summary');
+		console.log(data.summary);
+		data.image1 = grCard.getValue('sliding_image_1');
+		data.pdevName = grCard.getDisplayValue('developer');
+		data.image2 = grCard.getValue('sliding_image_2');
+		data.label4=grCard.technical_owner.getLabel();
+		data.record4=grCard.getDisplayValue('technical_owner');
+		data.video=grCard.getValue('video');
+		
+		data.label5=grCard.business_owner.getLabel();
+		data.record5=grCard.getDisplayValue('business_owner');
+		data.label8=grCard.developed_for.getLabel();
+		data.record8=grCard.getDisplayValue('developed_for');
+		data.label9=grCard.vertical.getLabel();
+		data.record9=grCard.getDisplayValue('vertical');
+		data.label10=grCard.region.getLabel();
+		data.record10=grCard.getDisplayValue('region');
+		
+	//	data.image3 = grCard.getValue('sliding_image_3');
+		//data.image4 = grCard.getValue('u_sliding_image_4');
+		
+			if(grCard.getDisplayValue('key_features') != null)
+				{
+						data.keySummaryText = grCard.getDisplayValue('key_features').toString().split("\n");
+				}
+		
+			if(grCard.getDisplayValue('key_artifactes') != null)
+				{
+						data.keyArtifactsText = grCard.getValue('key_artifactes').toString().split("\n");
+					console.log(data.keyArtifactsText);
+				}
+		
+		if(grCard.getDisplayValue('attachment') != null)
+				{
+						data.attachment1Name = grCard.getDisplayValue('attachment');
+					if(data.attachment1Name == "" || data.attachmentName == " " || data.attachmentName == null)
+						{
+							data.attachment = "no";	
+							//gs.addInfoMessage(data.attachment1);
+						}
+					
+						data.attachmentSysID	= grCard.getValue('attachment');
+						if(data.attachment1Name.endsWith(".pdf"))
+							{
+								data.attachment1Type = "pdf_icon_red_4.png";
+							}
+						else
+							{
+								data.attachment1Type = "word_icon.png";
+							}
+							
+				}	
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-05 01:38:12</sys_created_on>
+        <sys_id>acb2806f470c461023a95ffbd36d439a</sys_id>
+        <sys_mod_count>62</sys_mod_count>
+        <sys_name>cdpcoe product details</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_widget_acb2806f470c461023a95ffbd36d439a</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-06 08:49:03</sys_updated_on>
+        <template><![CDATA[<div class="container" style="padding:0px;">
+  <div class="row">
+
+    <img src="x_ggisu_cdp_app_st.AIportalimage.jpg"  style="max-width:104.5%;">
+    <div class="top-left"><strong>AI/Gen AI Use-Cases<br></strong>
+      <div class="bottom-left">
+        App Store 
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="padding-left:50px;padding-top:30px;"><widget id="breadcrumbs"></widget></div>
+<div>
+  <div class="container"  style="padding-left:41px;padding-top:30px;">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:11px;width:14.66%">
+        <span class="created_as" ng-if="data.app_created_as">
+          {{c.data.app_created_as}}
+        </span>
+      </div>
+
+
+
+      <span class="rating" ng-if="c.data.ratingAverage"><i class="fa fa-star kb-star-on"></i><span class="average_rating">
+        {{c.data.ratingAverage}} (Average Rating)
+        </span>
+      </span> 
+    </div> 
+  </div>
+</div>
+<div class="container" style="margin:0;padding-left:50px;width:1348px;">
+  <div clss="row">
+    <div class="col-md-8" style="padding-left:0px;width:62.66%">
+      <div class="app_name">
+        {{c.data.name}}
+      </div>
+    </div>
+ <!--<div class="col-md-2" style="width:9.66%;padding-top:20px;" >
+      <div class="share_txt" ng-click="c.showDetails()">
+
+       <!-- <img class="share" src="x_ggisu_sn_coe_por.share.svg"  /> -->
+       <!-- <span>Share</span>
+      </div> 
+    </div>-->
+
+  <!--  <div class="col-md-2" style="padding-top:20px;padding-left:0px; width:2.66%">
+
+      <div class="fav_txt1" ng-if="data.like_dislike==='Like'" ng-click="c.deleterec()" > <img class="heart"  src="x_ggisu_sn_coe_por.heart.svg"  /><span class="fav_icon">Added to favorites</span></div>
+      <div class="fav_txt" ng-if="data.like_dislike==='Dislike'||data.like_dislike===''" ng-click="c.addtofavourites()"> <i   class="fa fa-heart-o"  ></i><span class="fav_icon">Add to My Apps</span></div>
+
+    </div> -->
+  <!--  <div class="col-md-2" style="padding-top:8px;width:9.66%">
+      <span class="rating_txt"><b>${Rate this app:}</b><br><uib-rating sp-rating ng-model="data.rating" ng-click="giveRating()" max="5" aria-label="${Rate this article}" state-on="'fa fa-star kb-star-on'" state-off="'fa fa-star kb-star-off'"></uib-rating> &nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </div>-->
+  </div>
+</div>
+<div class="app-desc" style="padding-left:55px;">
+  {{c.data.desc}} 
+</div>
+<div class="container"  style="padding-left:53px;margin:0;padding-top:10px;">
+  <div class="row">
+    <div class="col-md-2" ng-if="data.app_link" style="padding-right:0px;padding-left:0px;width:14.66%">
+
+      <button type="button" class="btn btn-primary "  ng-click="c.go_to_appliaction(c.data.app_link)" style="background-color:#00AECF;border:none;">
+        <div class="application_txt">Go to Application</div></button>
+
+    </div>
+    
+   
+   <!-- <div class="col-md-2" style="padding-left:0px;width:14.66%">
+      <div class="button" style="border:1px solid #00AECF" ng-click="c.request_access(data.request_access)" >
+        <div class="request_txt" >
+          Request Access?
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+<div>
+  <table>
+    <td class="tdLeft">
+      <div class="preview_txt">
+        Preview 
+      </div>
+
+      <div class="clickable-image">
+        <img id="myImg"  title="Zoom image" class="mySlides"   ng-click="enlargeImg(this)"  src="/sys_attachment.do?sys_id={{data.image1}}" style="width:30%;">
+
+
+
+        <img id="myImg2" title="Zoom image" class="mySlides1" ng-click="enlargeImg(myImg2)" src="/sys_attachment.do?sys_id={{data.image2}}" style="width:30%;">
+
+
+
+       <!-- <img id="myImg3" title="Zoom image" class="mySlides2"  ng-click="enlargeImg(myImg3)" src="/sys_attachment.do?sys_id={{data.image3}}" style="width:30%;"> -->
+      </div>
+
+      <div class="tab" >
+        <button class="tablinks" ng-click="c.openCity(event, 'summary')" ><span class="tab_txt">Summary</span></button>
+        <button class="tablinks" ng-click="c.openCity(event, 'keySummary')" id="defaultOpen" ><span class="tab_txt">Key features</span></button>
+        <button class="tablinks" ng-click="c.openCity(event, 'keyArtifacts')" ><span class="tab_txt">Key artifacts</span></button>
+
+      </div>
+
+      <div class="tabcontent" id="summary" >{{data.summary}}</div>
+
+      <div class="tabcontent" id="keySummary">
+
+        <ul   ng-repeat="x in c.keySummary"> <li>{{x}}</li></ul>
+
+      </div>
+
+      <div class="tabcontent" id="keyArtifacts">
+        <ul    ng-repeat="x in c.data.keyArtifactsText"> <li>{{x}}</li></ul>
+      </div>
+      <div class="attachment_txt" ng-if="data.attachment1 !='no'||data.attachment2 !='no'">
+
+        Attachments<br>
+      </div>
+      <div ng-if="data.attachment1 !='no'">
+        <ul>
+          <li>  
+            <a href="/sys_attachment.do?sys_id={{c.data.attachment1SysID}}">&nbsp;{{c.data.attachment1Name}}</a><img src={{data.attachment1Type}} width="15" height="18"/><br></li>
+        </ul>
+      </div>
+
+    <!--  <div ng-if="data.attachment2 !='no'">
+        <ul>
+          <li>  
+            <a href="/sys_attachment.do?sys_id={{c.data.attachment2SysID}}">&nbsp;{{c.data.attachment2Name}}</a><img src={{data.attachment2Type}} width="15" height="18"/>
+          </li></ul>
+      </div> -->
+    </td>
+
+
+
+    <td class="tdRight">
+
+      <div class="card">
+        <div class="card-block">
+
+          <div class="card-title">
+            Application details
+          </div>
+
+          <form>
+
+            <div class="card-body">
+              <div class="row"  ng-if="data.record2">
+
+                <label class="form_text col-md-6" for="Approverdata">{{data.label2}}:</label>
+                <label class="form_val" name="Approverdata2">{{data.record2}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record3">
+                <label class="form_text col-md-6" for="nextrevdate" >{{data.label3}}:</label>
+                <label class="form_val" name="Approverdata3">{{data.record3}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record4">
+                <label class="form_text col-md-6" for="technicalowner" >{{data.label4}}:</label>
+                <label class="form_val" name="Approverdata4">{{data.record4}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record5">
+                <label class="form_text col-md-6" for="businessowner" >{{data.label5}}:</label>
+                <label class="form_val" name="Approverdata5">{{data.record5}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record6">
+                <label class="form_text col-md-6" for="infosecrev" >{{data.label6}}:</label>
+                <label class="form_val" name="Approverdata6">{{data.record6}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record7">
+                <label class="form_text col-md-6" for="infosecreviewer" >{{data.label7}}:</label>
+                <label class="form_val" name="Approverdata7">{{data.record7}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record8">
+                <label class="form_text col-md-6" for="developedfor" >{{data.label8}}:</label>
+                <label class="form_val" name="Approverdata4">{{data.record8}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record9">
+                <label class="form_text col-md-6" for="vertical" >{{data.label9}}:</label>
+                <label class="form_val" name="Approverdata4">{{data.record9}}</label><br><br>
+              </div>
+              <div class="row" ng-if="data.record10">
+                <label class="form_text col-md-6" for="region" >{{data.label10}}:</label>
+                <label class="form_val" name="Approverdata4">{{data.record10}}</label><br><br>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+       <div class="card">
+          <div class="card-body text-center">
+          <a ng-href="{{c.data.video}}" target="blank" class="text-center">Video Link</a>
+         </div>
+      </div>
+      <br>
+      <br>
+      <br>
+
+      <div class="card">
+        <div class="card-block">
+          <div class="card-title">
+            Key developers
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <table>
+                <tr>
+                 <!-- <td>
+                    <img src="/sys_attachment.do?sys_id={{data.pdevImage}}" class="circular_image"/>
+                  </td>-->
+                  <td>
+                    <b><div class="key_dev">&nbsp;&nbsp;{{data.pdevName}} </div></b>
+                    <div class="key_devlop">&nbsp;&nbsp;{{data.pdevDescription}}</div>
+                  <!--<div class="key_chat"style="padding-left: 8px;"><a id="$(jvar_n)" ng-click="c.invokeChatPrimary()" href="">Start chat</a></div>-->
+                </tr>
+
+                <tr>
+                 <!-- <td>
+                    <img src="/sys_attachment.do?sys_id={{data.sdevImage}}" class="circular_image"/>
+                  </td>-->
+                  <td>
+                    <b><div class="key_dev">&nbsp;&nbsp;{{data.sdevName}}</div></b>
+                    <div class="key_devlop">&nbsp;&nbsp;{{data.sdevDescription}}</div>
+                    <!--<div class="key_chat"style="padding-left: 8px;"><a id="$(jvar_n)" ng-click="c.invokeChatSecondary()" href="">Start chat</a></div>-->
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </td>
+  </table>
+</div>
+<!--model for share-->
+
+<div class="modal fade"  id="myModal" role="dialog" >
+  <div class="modal-dialog modal-sm"> 
+    <div class="modal-content" style="width: 297px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+        <h4 class="modal-title">Share</h4>
+      </div>
+      <div class="modal-body">
+        <span>Share with</span>
+        <sn-record-picker ng-required="true" sn-model="c.share_with" field="c.share_with" table="'sys_user'"  display-field="'name'"  value-field="'sys_id'" search-fields="'name,user_name'" page-size="100"   default-query ="'active=true'"  ></sn-record-picker> 
+        <span> Enter Comments</span><br>
+        <textarea row="5" cols="38"  id="comments" ng-model="c.modal_comments" >
+        </textarea>
+
+
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default"  ng-click="c.share(c.app)" style="background:#00AECF 0% 0% no-repeat padding-box; margin-left: -10px;">Share</button>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--end-->
+
+]]></template>
+    </sp_widget>
+</record_update>

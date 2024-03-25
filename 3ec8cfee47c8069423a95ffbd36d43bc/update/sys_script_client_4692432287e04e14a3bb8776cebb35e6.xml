@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>x_technical_owner</field>
+        <global>true</global>
+        <isolate_script>false</isolate_script>
+        <messages/>
+        <name>Technical Owner</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+   //Type appropriate comment here, and begin script below
+   var user = g_form.getValue('x_technical_owner');
+	//alert(user);
+	var ga = new GlideAjax('x_ggisu_cdp_app_st.Getdetails');
+	//g_form.addInfoMessage(user);
+	ga.addParam('sysparm_name','getSysUser');
+	ga.addParam('sysparm_user',user);
+	ga.getXML(callback);
+	function callback(response){
+		var answer = response.responseXML.documentElement.getAttribute("answer");
+		var t = JSON.parse(answer);
+		//alert(answer);
+		//alert(t.email);
+		//g_form.addInfoMessage(t.email);
+		//g_form.setValue('name_of_creator',t.name);
+		//g_form.addInfoMessage(user);
+		//g_form.setValue('creator_s_ohr_id',t.ohrid);
+		g_form.setValue('technical_owner_email',t.email);
+	}
+
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-27 09:45:16</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>4692432287e04e14a3bb8776cebb35e6</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>Technical Owner</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sys_script_client_4692432287e04e14a3bb8776cebb35e6</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-27 10:19:41</sys_updated_on>
+        <table>x_ggisu_cdp_app_st_cdp_portal</table>
+        <type>onChange</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>

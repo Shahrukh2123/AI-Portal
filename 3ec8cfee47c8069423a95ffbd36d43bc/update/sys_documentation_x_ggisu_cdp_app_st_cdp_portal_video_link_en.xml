@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="video_link" label="Video_link" language="en" table="x_ggisu_cdp_app_st_cdp_portal">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>video_link</element>
+            <help/>
+            <hint/>
+            <label>Video_link</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <plural>Video_links</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>703369055</sys_created_by>
+            <sys_created_on>2024-03-06 08:22:10</sys_created_on>
+            <sys_id>f2deb38587b482106c60a9383cbb35d1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Video_link</sys_name>
+            <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+            <sys_update_name>sys_documentation_x_ggisu_cdp_app_st_cdp_portal_video_link_en</sys_update_name>
+            <sys_updated_by>703369055</sys_updated_by>
+            <sys_updated_on>2024-03-06 08:22:10</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

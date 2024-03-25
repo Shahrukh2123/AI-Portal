@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_email">
+    <sys_script_email action="INSERT_OR_UPDATE">
+        <name>AIportalshare</name>
+        <new_lines_to_html>false</new_lines_to_html>
+        <script><![CDATA[(function runMailScript( /* GlideRecord */ current, /* TemplatePrinter */ template,
+    /* Optional EmailOutbound */
+    email, /* Optional GlideRecord */ email_action,
+    /* Optional GlideRecord */
+    event) {
+    //var parser = new JSONParser();
+    var details = event.parm2;
+    var detailsparsed = JSON.parse(details);
+    template.print('<p>Hello ' + detailsparsed.sharewith + '<br/>');
+    template.print('<p>' + detailsparsed.sharedfrom +' found this great app on AI App Store and would like to share this app       link with you! Do explore and see how it can be useful for you and your team!' + '<br/>');
+    template.print('<p>App Name: ' + detailsparsed.appname + '<br/>');
+	if(detailsparsed.application_link){
+    template.print('<p>App Link: ' + detailsparsed.application_link + '<br/>');
+	}
+    template.print('<p>You can also see other apps in the AI App Store ' + '<a href="/aiportal?id=ai_store_home">here</a>');
+	if(detailsparsed.comments){
+    template.print('<p>Comments from ' + detailsparsed.sharedfrom + ": " + detailsparsed.comments + '</br>');
+	}
+
+})(current, template, email, email_action, event);]]></script>
+        <sys_class_name>sys_script_email</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-15 01:27:22</sys_created_on>
+        <sys_id>335f57a28798c6906c60a9383cbb353e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>AIportalshare</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sys_script_email_335f57a28798c6906c60a9383cbb353e</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-15 01:27:22</sys_updated_on>
+    </sys_script_email>
+</record_update>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="function" table="x_ggisu_cdp_app_st_cdp_portal" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>function</element>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 07:58:30</sys_created_on>
+            <sys_id>a846e9a897700e106ca8f0c6f053af5e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>function</sys_name>
+            <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+            <sys_update_name>sys_choice_x_ggisu_cdp_app_st_cdp_portal_function</sys_update_name>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 07:58:30</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Enabler</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 07:58:30</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>f226e1ec97700e106ca8f0c6f053afa6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 07:58:30</sys_updated_on>
+            <value>enabler</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Finance</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 07:58:51</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b546696c97700e106ca8f0c6f053af7f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 07:58:51</sys_updated_on>
+            <value>finance</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Growth Ops</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 07:59:07</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>9a5625e097b00e106ca8f0c6f053af0c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 07:59:07</sys_updated_on>
+            <value>growth_ops</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>HR</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 07:59:28</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c976a9a097b00e106ca8f0c6f053af07</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 07:59:28</sys_updated_on>
+            <value>hr</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>I&amp;L</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 07:59:50</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>e77625e097b00e106ca8f0c6f053af12</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 07:59:50</sys_updated_on>
+            <value>ial</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>IT</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 09:34:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>0f4c392097708e106ca8f0c6f053afee</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 09:34:58</sys_updated_on>
+            <value>it</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>LDT</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:00:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c996e96497b00e106ca8f0c6f053afe0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:00:01</sys_updated_on>
+            <value>ldt</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Legal</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:00:25</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>aaa6a9a897b00e106ca8f0c6f053affa</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:00:25</sys_updated_on>
+            <value>legal</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Marketing</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:00:39</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>61b6e9a897b00e106ca8f0c6f053af04</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:00:39</sys_updated_on>
+            <value>marketing</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Operations</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:00:54</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>acc6e5e897b00e106ca8f0c6f053af70</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:00:54</sys_updated_on>
+            <value>operations</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>function</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Sourcing</label>
+            <language>en</language>
+            <name>x_ggisu_cdp_app_st_cdp_portal</name>
+            <sequence/>
+            <synonyms/>
+            <sys_created_by>703329546</sys_created_by>
+            <sys_created_on>2024-03-04 08:01:16</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>25d6edac97b00e106ca8f0c6f053afc7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>703329546</sys_updated_by>
+            <sys_updated_on>2024-03-04 08:01:16</sys_updated_on>
+            <value>sourcing</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

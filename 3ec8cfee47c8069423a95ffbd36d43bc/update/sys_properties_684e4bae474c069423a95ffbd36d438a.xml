@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description>If true, portal css would be in rem units</description>
+        <ignore_cache>true</ignore_cache>
+        <is_private>false</is_private>
+        <name>glide.service_portal.resize_text.clientzero.enable_rem_conversion</name>
+        <read_roles/>
+        <suffix/>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-02 13:53:38</sys_created_on>
+        <sys_id>684e4bae474c069423a95ffbd36d438a</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>glide.service_portal.resize_text.clientzero.enable_rem_conversion</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sys_properties_684e4bae474c069423a95ffbd36d438a</sys_update_name>
+        <sys_updated_by>703318399</sys_updated_by>
+        <sys_updated_on>2024-03-03 03:54:16</sys_updated_on>
+        <type>boolean</type>
+        <value>true</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=684e4bae474c069423a95ffbd36d438a"/>
+</record_update>

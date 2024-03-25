@@ -1,0 +1,1564 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($uibModal, $scope, $rootScope) {
+	/* widget controller */
+	var c = this;
+	c.alphaArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+	c.click_alpha='false';
+	c.tabName = "General";
+	c.popUpDetls = [];
+	c.fltText = "";
+	c.search="";
+	c.orignalArr = c.data.summaryRecords.list;
+	c.orignalArr1 = c.data.summaryRecords.list;
+	c.pagingArr = c.data.summaryRecords.list;
+	c.pagingLength=c.orignalArr.length;
+	c.actList = "All";
+	c.favourite=c.data.favouriteapps;
+	c.featured=c.data.featuredapps;
+	c.allapps=c.data.summaryRecords.list;
+	for(i=0;i<c.featured.length;i++){
+		if(c.featured[i].desc.length>85){
+
+			c.featured[i].desc=c.featured[i].desc.slice(0,85);
+			c.data.featuredapps[i].desc=c.featured[i].desc + '...'
+		}
+	}
+
+	for(i=0;i<c.allapps.length;i++){
+		if(c.allapps[i].desc.length>90){
+
+			c.allapps[i].desc=c.allapps[i].desc.slice(0,90);
+			c.data.summaryRecords.list[i].desc=c.allapps[i].desc + '...'
+		}
+	}
+
+
+	/* var cardDom = document.getElementsByClassName('card')
+    cardDom.addEventListener("mouseover", function( event ) {
+			//	c.index=c.activeItemIndex
+	 //alert(c.index)
+      var cardDomTitle = cardDom.getElementsByClassName('card-title')[0]
+      var cardDomDesc = cardDom.getElementsByClassName('card-desc')[0]
+      var cardDomMiddle = cardDom.getElementsByClassName('card-mid')[0]
+      var cardMiddleHeight = cardDomTitle.offsetHeight + cardDomDesc.offsetHeight;
+      cardDomMiddle.style.height = cardMiddleHeight + 55 + "px";
+    }, false);
+
+    cardDom.addEventListener("mouseout", function( event ) {
+      var cardDomMiddle = cardDom.getElementsByClassName('card-mid')[0]
+      cardDomMiddle.style.height = 80 + "px";
+    }, false);
+		*/
+
+/*	c.hoverIn=function(m){
+
+		var cardDom = document.getElementById(m)
+		//alert(cardDom)
+		var cardDomTitle = cardDom.getElementsByClassName('card-title')[0]
+		var cardDomDesc = cardDom.getElementsByClassName('card-desc')[0]
+		var cardDomMiddle = cardDom.getElementsByClassName('card-mid')[0]
+		var cardMiddleHeight = cardDomTitle.offsetHeight + cardDomDesc.offsetHeight;
+		cardDomMiddle.style.height = cardMiddleHeight + 100 + "px";
+
+
+	}
+
+	c.hoverOut=function(m){
+		var cardDom = document.getElementById(m)
+		var cardDomMiddle = cardDom.getElementsByClassName('card-mid')[0]
+		cardDomMiddle.style.height = 165 + "px";
+	}
+	//	alert(c.data.favorite_active)
+	var j = "";
+	$("#All").addClass('active');
+	var arrAppCreatedAs = [];
+	//for modal
+	c.share_with={
+		//value:c.data.share_with,
+		name:'share_with'
+	}
+	//pagination for favourites
+
+
+
+	if(c.favourite.length>0){
+		c.pageSize1 = 2;
+		c.selectCount1 = 0;
+		c.data.favouriteRecords.startIndex1= 0;
+		c.data.favouriteRecords.endIndex1 = Math.min(c.pageSize1 - 1, (c.data.favouriteRecords.list.length) - 1);
+		c.data.favouriteRecords.pages1 = new Array(Math.ceil(c.data.favouriteRecords.list.length/c.pageSize1));
+	}
+	c.showRecords1 = function(obj, index) {
+		return index >= obj.startIndex1 && index <=obj.endIndex1;
+	};
+
+	c.gotoPage1 = function(obj, i) {
+		obj.pageIndex1 = i < 0 ? Math.max(obj.pageIndex1 + i, 0) : Math.min(obj.pageIndex1 + i, obj.list.length - 1);
+		obj.startIndex1 = Math.max(obj.pageIndex1 * c.pageSize1, 0);
+		obj.endIndex1 = Math.min(obj.startIndex1 + c.pageSize1 - 1, obj.list.length - 1);
+	};
+	*/
+	//pagination for All apps
+	c.pageSize = 6;
+	c.selectCount = 0;
+	c.data.summaryRecords.startIndex = 0;
+	c.data.summaryRecords.endIndex = Math.min(c.pageSize - 1, c.data.summaryRecords.list.length - 1);
+	c.data.summaryRecords.pages = new Array(Math.ceil(c.data.summaryRecords.list.length/c.pageSize));
+	c.showRecords = function(obj, index) {
+		return index >= obj.startIndex && index <=obj.endIndex;
+	};
+
+	c.gotoPage = function(obj, i) {
+		obj.pageIndex = i < 0 ? Math.max(obj.pageIndex + i, 0) : Math.min(obj.pageIndex + i, obj.list.length - 1);
+		obj.startIndex = Math.max(obj.pageIndex * c.pageSize, 0);
+		obj.endIndex = Math.min(obj.startIndex + c.pageSize - 1, obj.list.length - 1);
+	};
+
+	//Add to favourites
+/*	c.likedIcon=function(){	
+		if( c.data.favorite_active == "like")
+		{
+			document.getElementById('likeIcon').style.color='#D3D3D3';
+			//	document.getElementById('likeIcon').style.cursor='default';
+			//	document.getElementById('likeIcon').style.pointerEvents = "none";
+			//document.getElementById('likeIcon').disabled=false;
+
+		}
+
+		if(c.data.favorite_active == "dislike")
+		{
+			alert("here");
+			document.getElementById('likeIcon').style.color='black';
+			//	document.getElementById('likeIcon').style.cursor='default';
+			//	document.getElementById('likeIcon').style.pointerEvents = "none";
+			//document.getElementById('likeIcon').disabled=false;
+
+		}
+
+	}
+	c.addtofavourites=function(i){
+		c.data.app_id1=i;
+		//alert(i)
+		c.server.update().then(function() {
+			var redirectTo = "/portal360?id=e360_app_store" ;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);
+		});
+		// window.setTimeout(restartscreen, 3000);
+	}
+
+
+	//Delete record
+	c.deleterec = function(i) {
+		uiActionDelete(i);
+
+	};
+
+	uiActionDelete = function(i) {
+		c.data.action= "delete";
+		c.data.num= i			;
+		c.server.update().then(function() {
+			var redirectTo = "/portal360?id=e360_app_store" ;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);
+		});
+
+
+	};
+
+	//share function
+	c.showDetails = function(app){
+
+		c.app = app;
+		$('#myModal').modal('show');
+	};
+
+	c.share=function(t){
+		//alert(t)
+		c.data.share_with1=c.share_with.value;
+		c.data.comments=c.comments;
+		c.data.app_name=t;
+
+		c.server.update().then(function(){
+			var redirectTo = "/portal360?id=e360_app_store" ;
+			setTimeout(function(){
+				top.window.location = redirectTo;
+			}, 2000);
+		})
+		//window.setTimeout(restartscreen, 3000);
+	}
+	function restartscreen() {
+
+		location.reload(true);
+
+	}	
+
+	//All radio button code.
+
+	c.all = function(idname){
+		$('input[name=radio1]').attr('checked',false);
+		c.actList = idname;
+		var filteredArr = []; 
+		$(".liAlpha").removeClass('active');
+		c.data.summaryRecords.list = c.orignalArr;
+		c.pagingArr = c.orignalArr;
+		c.pagingLength = c.orignalArr.length;
+		var tst = "#" + idname;
+		$(tst).addClass('active');
+
+		if(idname == "All"){
+
+			c.maxEnteries = '20';
+			c.data.summaryRecords.list = c.data.summaryRecords.list.slice(0, c.maxEnteries)
+			c.currentPage = 1;
+			c.numPages = Math.ceil(c.orignalArr.length.length / c.maxEnteries);
+			c.start = 0;
+			c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.data.summaryRecords.list.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.data.summaryRecords.list.length - 1;
+			return;
+		}
+
+		for(var k=0 ; k < c.data.summaryRecords.list.length ; k++ )
+		{
+			console.log("Here: " + c.data.summaryRecords.list[k].name.startsWith(idname) );
+
+			if(c.data.summaryRecords.list[k].name.startsWith(idname) == true)
+			{
+				filteredArr.push(c.data.summaryRecords.list[k]);
+			}
+		}
+
+
+
+
+		c.pagingLength  = filteredArr.length;
+		c.data.summaryRecords.list = filteredArr;
+		c.pagingArr     = filteredArr;
+
+		c.maxEnteries   = '20';
+		c.data.summaryRecords.list = filteredArr.slice(0, c.maxEnteries)
+		c.currentPage   = 1;
+		c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		c.start         = 0;
+		c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		c.search        =idname;
+	}
+
+	// End all radio button code
+
+
+	//Select box in left nav change code:
+
+	c.company_picker = {
+		displayValue: c.data.company_dv,
+		value: c.data.company,
+		name: 'company'
+	};
+
+
+	$scope.$on("field.change", function(evt, parms) {
+		console.log("parms" + parms.field.name);
+		if (parms.field.name == 'company') {
+			c.data.company_dv = parms.displayValue;
+
+			console.log(c.data.company_dv);
+			c.data.company = parms.newValue;
+
+			console.log(c.data.company);
+			c.getGroupVertical(c.data.company_dv);
+		}
+	});
+
+	c.vertical = {
+		displayValue: c.data.verticalDis,
+		value: c.data.vertical,
+		name: 'vertical'
+	};
+
+
+	$scope.$on("field.change", function(evt, parms) {
+		if (parms.field.name == 'vertical') {
+			c.data.verticalDis = parms.displayValue;
+			c.data.vertical = parms.newValue;
+			c.getAppVerticalAs(c.data.verticalDis);
+		}
+	});
+
+	c.region = {
+		displayValue: c.data.regionName,
+		value: c.data.region,
+		name: 'region'
+	};
+
+
+	$scope.$on("field.change", function(evt, parms) {
+		if (parms.field.name == 'region') {
+			c.data.regionName = parms.displayValue;
+			c.data.region = parms.newValue;
+			c.getRegion(c.data.regionName);
+		}
+	});
+
+	c.category = {
+		displayValue: c.data.categoryName,
+		value: c.data.category,
+		name: 'category'
+	};
+
+
+	$scope.$on("field.change", function(evt, parms) {
+		if (parms.field.name == 'category') {
+			c.data.categoryName = parms.displayValue;
+			c.data.category = parms.newValue;
+			c.getAppCreatedAs(c.data.categoryName);
+		}
+	});
+	//END select box code
+
+
+
+	c.maxEnteries = '20';
+	c.data.summaryRecords.list = c.orignalArr.slice(0, c.maxEnteries)
+	c.currentPage = 1;
+	c.numPages = Math.ceil(c.orignalArr.length / c.maxEnteries);
+	c.start = 0;
+	c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.orignalArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.orignalArr.length - 1;
+
+	c.setCurrentPage = function(pageNum) {
+		c.numPages = Math.ceil(c.pagingArr.length / c.maxEnteries);
+		if (pageNum < 1 || pageNum > c.numPages) return;
+		c.start = (pageNum - 1) * c.maxEnteries;
+		if(c.actList == "All" )
+		{
+			c.end = parseInt(c.start) + 5 < c.pagingArr.length - 1 ? parseInt(c.start)  + parseInt(c.maxEnteries) : c.pagingArr.length;
+		}
+		else
+		{
+			c.end = parseInt(c.start) + 5 <c.data.summaryRecords.list.length - 1 ? parseInt(c.start)  + parseInt(c.maxEnteries) : c.pagingArr.length;
+		}
+		c.data.summaryRecords.list = c.pagingArr.slice(c.start, c.end);
+		c.currentPage = pageNum;
+		console.log(pageNum);
+	};
+
+	c.learnMore = function(sid) {
+		for (j = 0; j < c.data.allPopUpData.length; j++) {
+
+			if (sid == c.data.allPopUpData[j].id) {
+				c.popUpDetls = [];
+				c.popUpDetls.push(c.data.allPopUpData[j]);
+			}
+		}
+	}*/
+
+	$rootScope.$on('searchModel',function(event,searchStr) {
+		
+		if(searchStr == "")
+		{
+			c.data.summaryRecords.list = c.orignalArr;
+			c.alphaActive(c.actList);
+
+			return;
+		}
+
+		c.data.summaryRecords.list= [];
+		for(var i=0 ; i < c.orignalArr.length ; i++)
+		{
+			if(c.orignalArr[i].name.toString().toLowerCase().includes(searchStr.toLowerCase()) || c.orignalArr[i].desc.toString().toLowerCase().includes(searchStr.toLowerCase()))
+			{
+			//	document.getElementById('favorite_apps').style.display = "none";
+			//	document.getElementById('featured_apps').style.display = "none";
+			//	document.getElementById('quick_link2').style.display = "block";
+				
+				c.data.summaryRecords.list.push(c.orignalArr[i]);
+				
+			}
+		}
+	});
+
+
+
+	c.showPopUp = function(id) {
+		c.learnMore(id);
+		c.modalInstance = $uibModal.open({
+			templateUrl: 'modalTemplate',
+			scope: $scope
+		});
+	}
+
+	c.openCity = function(a , b) {
+		c.tabName = a ;
+	}
+
+	$rootScope.$on('alphaActive',function(event,idname) {
+	
+		 c.click_alpha='true';
+		var filteredArr = [];
+		//document.getElementById('favorite_apps').style.display = "none";
+		//document.getElementById('featured_apps').style.display = "none";
+		//document.getElementById('quick_link2').style.display = "block";
+		//document.getElementsByClassName('all_app col-md-8').style.display = "block";
+		//var all_app=document.getElementsByClassName('all_app_desc')
+		//alert(all_app.ClassName)
+		//	all_app.className += "col-md-8";
+
+		//favorite_apps.display='none';
+		c.actList = idname;
+		$(".liAlpha").removeClass('active');	
+		var tst = "#" + idname;
+		$(tst).addClass('active');
+		c.data.summaryRecords.list = c.orignalArr;
+		if(idname == "All"){
+			c.data.summaryRecords.list = c.orignalArr1;
+			
+			if(c.data.summaryRecords.list.length>2){
+			
+			}
+		}
+		else{
+
+
+			for(var k=0 ; k < c.data.summaryRecords.list.length ; k++ ){
+				if(c.data.summaryRecords.list[k].name.startsWith(idname) == true)
+				{	
+					filteredArr.push(c.data.summaryRecords.list[k]);
+
+
+				}
+
+			}
+			
+			c.data.summaryRecords.list = filteredArr;
+		}
+		c.pageSize = 6;
+		c.selectCount = 0;
+
+
+		c.data.summaryRecords.startIndex = 0;
+		c.data.summaryRecords.endIndex = Math.min(c.pageSize - 1, c.data.summaryRecords.list.length - 1);
+		c.data.summaryRecords.pages = new Array(Math.ceil(c.data.summaryRecords.list.length/c.pageSize));
+
+		//c.pagingLength  = filteredArr.length;
+
+		//alert(c.data.summaryRecords)
+		//c.pagingArr     = filteredArr;
+
+		//c.maxEnteries   = '20';
+		//c.data.summaryRecords.list = filteredArr.slice(0, c.maxEnteries)
+		//c.currentPage   = 1;
+		//c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		//c.start         = 0;
+		//c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		//c.search        =idname;
+
+	})
+	/*c.alphaActive = function(idname) {
+
+
+		c.actList = idname;
+		var filteredArr = []; 
+		$(".liAlpha").removeClass('active');
+		c.data.summaryRecords.list = c.orignalArr;
+		c.pagingArr = c.orignalArr;
+		c.pagingLength = c.orignalArr.length;
+		var tst = "#" + idname;
+		$(tst).addClass('active');
+
+		console.log(c.data.summaryRecords.list[1].name);
+		if(idname == "All"){
+			c.maxEnteries = '20';
+			c.data.summaryRecords.list = c.data.summaryRecords.list.slice(0, c.maxEnteries)
+			//c.currentPage = 1;
+			//c.numPages = Math.ceil(c.orignalArr.length.length / c.maxEnteries);
+			//c.start = 0;
+			//c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.data.summaryRecords.list.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.data.summaryRecords.list.length - 1;
+			return;
+			//c.data.summaryRecords.list = c.data.summaryRecords.list
+		}
+
+
+		for(var k=0 ; k < c.data.summaryRecords.list.length ; k++ )
+		{
+
+			if(c.data.summaryRecords.list[k].name.startsWith(idname) == true)
+			{
+				//filteredArr.push(c.data.summaryRecords.list[k]);
+				c.data.summaryRecords.list=c.data.summaryRecords.list[k]
+			}
+		}
+
+
+		/*for(var k=0 ; k < c.data.appsList.length ; k++ )
+			{
+					console.log("Here1");
+
+						if(c.data.appsList[k].id != c.data.appsList[k-1].id)
+							{
+										console.log("asdadsa");
+										filteredArr.push(c.data.appsList[k]);
+							}
+			}
+
+	*/
+
+	/*c.pagingLength  = filteredArr.length;
+		c.data.summaryRecords.list = filteredArr;
+		c.pagingArr     = filteredArr;
+
+		c.maxEnteries   = '20';
+		c.data.summaryRecords.list = filteredArr.slice(0, c.maxEnteries)
+		c.currentPage   = 1;
+		c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		c.start         = 0;
+		c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		c.search        =idname;
+	}
+
+
+	c.learnMorenew = function(id) {
+		//	alert(id);
+		var redirectExistingInfo = '?id=coe_learn_more&data='+id;
+		top.window.location = redirectExistingInfo;
+
+	}
+
+	c.load = function(){
+		var cols = document.getElementsByClassName('card');
+		//alert(c.data.finalColorCards);
+		c.colorArray =c.data.finalColorCards.split(",");
+		//	alert(c.colorArray);
+		for(i = 0; i < cols.length; i++) {
+			if(c.colorArray[i]== 'true')
+			{
+				//	 alert("here");
+				cols[i].style.backgroundColor ="antiquewhite";
+			}
+		}
+
+	}
+
+	c.data.varTest ='';
+
+	c.getAppCreatedAs = function(idname){
+		$('input[name=radio2]').attr('checked',false);
+
+		var checkedValue = false;
+		if(idname != '' && idname != null){
+			checkedValue = true;
+		}
+		//var checkedValue = document.getElementById(idname).checked == false;
+		c.actList = idname;
+		var filteredArr = []; 
+		$(".liAlpha").removeClass('active');
+		c.data.appsList = c.orignalArr;
+		c.pagingArr = c.orignalArr;
+		c.pagingLength = c.orignalArr.length;
+		var tst = "#" + idname;
+		$(tst).addClass('active');
+
+		if(checkedValue == false ){
+			c.maxEnteries = '20';
+			c.data.appsList = c.data.appsList.slice(0, c.maxEnteries)
+			c.currentPage = 1;
+			c.numPages = Math.ceil(c.orignalArr.length.length / c.maxEnteries);
+			c.start = 0;
+			c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.data.appsList.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.data.appsList.length - 1;
+			return;
+		}
+
+
+		for(var k=0 ; k < c.data.appsList.length ; k++ )
+		{
+
+			if(c.data.appsList[k].appCreatedAs == idname)
+			{
+				filteredArr.push(c.data.appsList[k]);
+			}
+		}
+		c.pagingLength  = filteredArr.length;
+		c.data.appsList = filteredArr;
+		c.pagingArr     = filteredArr;
+
+		c.maxEnteries   = '20';
+		c.data.appsList = filteredArr.slice(0, c.maxEnteries)
+		c.currentPage   = 1;
+		c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		c.start         = 0;
+		c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		c.search        =idname;
+
+
+	}
+
+	c.getAppDepartmentAs = function(idname){
+
+		var checkedValue = document.getElementById(idname).checked == false;
+		c.actList = idname;
+		var filteredArr = []; 
+		$(".liAlpha").removeClass('active');
+		c.data.appsList = c.orignalArr;
+		c.pagingArr = c.orignalArr;
+		c.pagingLength = c.orignalArr.length;
+		var tst = "#" + idname;
+		$(tst).addClass('active');
+
+		if(checkedValue == true){
+			c.maxEnteries = '20';
+			c.data.appsList = c.data.appsList.slice(0, c.maxEnteries)
+			c.currentPage = 1;
+			c.numPages = Math.ceil(c.orignalArr.length.length / c.maxEnteries);
+			c.start = 0;
+			c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.data.appsList.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.data.appsList.length - 1;
+			return;
+		}
+
+
+		for(var k=0 ; k < c.data.appsList.length ; k++ )
+		{
+
+			if(c.data.appsList[k].appDepartment == idname)
+			{
+				filteredArr.push(c.data.appsList[k]);
+			}
+		}
+		c.pagingLength  = filteredArr.length;
+		c.data.appsList = filteredArr;
+		c.pagingArr     = filteredArr;
+
+		c.maxEnteries   = '20';
+		c.data.appsList = filteredArr.slice(0, c.maxEnteries)
+		c.currentPage   = 1;
+		c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		c.start         = 0;
+		c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		c.search        =idname;
+
+
+	}
+
+
+	c.getAppVerticalAs = function(idname){
+		$('input[name=radio2]').attr('checked',false);
+
+		var checkedValue = false;
+		if(idname != '' && idname != null){
+			checkedValue = true;
+		}
+
+		//checkedValue = document.getElementById(idname).checked == false;
+		//var checkedValue = document.getElementById(idname).checked == false;
+		c.actList = idname;
+		var filteredArr = []; 
+		$(".liAlpha").removeClass('active');
+		c.data.appsList = c.orignalArr;
+		c.pagingArr = c.orignalArr;
+		c.pagingLength = c.orignalArr.length;
+		var tst = "#" + idname;
+		$(tst).addClass('active');
+
+		if(checkedValue == false){
+			c.maxEnteries = '20';
+			c.data.appsList = c.data.appsList.slice(0, c.maxEnteries)
+			c.currentPage = 1;
+			c.numPages = Math.ceil(c.orignalArr.length.length / c.maxEnteries);
+			c.start = 0;
+			c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.data.appsList.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.data.appsList.length - 1;
+			return;
+		}
+
+
+		for(var k=0 ; k < c.data.appsList.length ; k++ )
+		{
+
+			if(c.data.appsList[k].appVertical == idname || c.data.appsList[k].typeOfApp == 'Global')
+			{
+				filteredArr.push(c.data.appsList[k]);
+			}
+		}
+		c.pagingLength  = filteredArr.length;
+		c.data.appsList = filteredArr;
+		c.pagingArr     = filteredArr;
+
+		c.maxEnteries   = '20';
+		c.data.appsList = filteredArr.slice(0, c.maxEnteries)
+		c.currentPage   = 1;
+		c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		c.start         = 0;
+		c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		c.search        =idname;
+
+
+	}
+
+
+	c.getAppFteAs = function(idname){
+
+		var checkedValue = document.getElementById(idname).checked == false;
+		c.actList = idname;
+		var filteredArr = []; 
+		$(".liAlpha").removeClass('active');
+		c.data.appsList = c.orignalArr;
+		c.pagingArr = c.orignalArr;
+		c.pagingLength = c.orignalArr.length;
+		var tst = "#" + idname;
+		$(tst).addClass('active');
+
+		if(checkedValue == true){
+			c.maxEnteries = '20';
+			c.data.appsList = c.data.appsList.slice(0, c.maxEnteries)
+			c.currentPage = 1;
+			c.numPages = Math.ceil(c.orignalArr.length.length / c.maxEnteries);
+			c.start = 0;
+			c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.data.appsList.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.data.appsList.length - 1;
+			return;
+		}
+
+
+		for(var k=0 ; k < c.data.appsList.length ; k++ )
+		{
+
+			if(c.data.appsList[k].appFte == idname)
+			{
+				filteredArr.push(c.data.appsList[k]);
+			}
+		}
+		c.pagingLength  = filteredArr.length;
+		c.data.appsList = filteredArr;
+		c.pagingArr     = filteredArr;
+
+		c.maxEnteries   = '20';
+		c.data.appsList = filteredArr.slice(0, c.maxEnteries)
+		c.currentPage   = 1;
+		c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		c.start         = 0;
+		c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		c.search        =idname;
+
+
+	}
+
+
+	c.getAppCooAs = function(idname){
+
+		var checkedValue = document.getElementById(idname).checked == false;
+		c.actList = idname;
+		var filteredArr = []; 
+		$(".liAlpha").removeClass('active');
+		c.data.appsList = c.orignalArr;
+		c.pagingArr = c.orignalArr;
+		c.pagingLength = c.orignalArr.length;
+		var tst = "#" + idname;
+		$(tst).addClass('active');
+
+		if(checkedValue == true){
+			c.maxEnteries = '20';
+			c.data.appsList = c.data.appsList.slice(0, c.maxEnteries)
+			c.currentPage = 1;
+			c.numPages = Math.ceil(c.orignalArr.length.length / c.maxEnteries);
+			c.start = 0;
+			c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.data.appsList.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.data.appsList.length - 1;
+			return;
+		}
+
+
+		for(var k=0 ; k < c.data.appsList.length ; k++ )
+		{
+
+			if(c.data.appsList[k].appCoo == idname)
+			{
+				filteredArr.push(c.data.appsList[k]);
+			}
+		}
+		c.pagingLength  = filteredArr.length;
+		c.data.appsList = filteredArr;
+		c.pagingArr     = filteredArr;
+
+		c.maxEnteries   = '20';
+		c.data.appsList = filteredArr.slice(0, c.maxEnteries)
+		c.currentPage   = 1;
+		c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		c.start         = 0;
+		c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		c.search        =idname;
+
+
+	}
+
+	c.getGroupVertical = function(idname){
+
+		console.log("Idname:" + idname);
+		$('input[name=radio2]').attr('checked',false);
+		var checkedValue = false;
+		if(idname != '' && idname != null){
+			checkedValue = true;
+		}
+		console.log("Here");
+		//checkedValue = document.getElementById(idname).checked == false;
+		console.log(checkedValue);
+		c.actList = idname;
+		var filteredArr = []; 
+		$(".liAlpha").removeClass('active');
+		c.data.appsList = c.orignalArr;
+		c.pagingArr = c.orignalArr;
+		c.pagingLength = c.orignalArr.length;
+		var tst = "#" + idname;
+		$(tst).addClass('active');
+
+		if(checkedValue == false ){
+			c.maxEnteries = '20';
+			c.data.appsList = c.data.appsList.slice(0, c.maxEnteries)
+			c.currentPage = 1;
+			c.numPages = Math.ceil(c.orignalArr.length.length / c.maxEnteries);
+			c.start = 0;
+			c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.data.appsList.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.data.appsList.length - 1;
+			return;
+		}
+
+		for(var k=0 ; k < c.data.appsList.length ; k++ )
+		{
+			if(c.data.appsList[k].groupVertical == idname)
+			{
+				filteredArr.push(c.data.appsList[k]);
+			}
+		}
+		c.pagingLength  = filteredArr.length;
+		c.data.appsList = filteredArr;
+		c.pagingArr     = filteredArr;
+
+		c.maxEnteries   = '20';
+		c.data.appsList = filteredArr.slice(0, c.maxEnteries)
+		c.currentPage   = 1;
+		c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		c.start         = 0;
+		c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		c.search        =idname;
+
+
+	}
+
+
+	c.getRegion = function(idname){
+
+		var testidName = " " + idname;
+		$('input[name=radio2]').attr('checked',false);
+		var checkedValue = false;
+		if(idname != '' && idname != null){
+			checkedValue = true;
+		}
+		//	var checkedValue = document.getElementById(idname).checked == false;
+		c.actList = idname;
+		var filteredArr = []; 
+		$(".liAlpha").removeClass('active');
+		c.data.appsList = c.orignalArr;
+		c.pagingArr = c.orignalArr;
+		c.pagingLength = c.orignalArr.length;
+		var tst = "#" + idname.replace("/","");
+		$(tst).addClass('active');
+
+		if(checkedValue == false ){
+			c.maxEnteries = '20';
+			c.data.appsList = c.data.appsList.slice(0, c.maxEnteries)
+			c.currentPage = 1;
+			c.numPages = Math.ceil(c.orignalArr.length.length / c.maxEnteries);
+			c.start = 0;
+			c.end = parseInt(c.start)  + parseInt(c.maxEnteries)  < c.data.appsList.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : c.data.appsList.length - 1;
+			return;
+		}
+
+
+		for(var k=0 ; k < c.data.appsList.length ; k++ )
+		{
+			for(var z=0;z < c.data.appsList[k].region.length ; z++)
+			{
+				if(c.data.appsList[k].region[z] != ' ')
+				{
+					if(c.data.appsList[k].region[z] == idname)
+					{
+						//	//	if(c.data.appsList[k].id != c.data.appsList[k-1].id)
+						//	{
+						filteredArr.push(c.data.appsList[k]);
+						//	}
+
+					}
+				}
+			}
+		}
+
+		c.pagingLength  = filteredArr.length;
+		c.data.appsList = filteredArr;
+		c.pagingArr     = filteredArr;
+
+		c.maxEnteries   = '20';
+		c.data.appsList = filteredArr.slice(0, c.maxEnteries)
+		c.currentPage   = 1;
+		c.numPages      = Math.ceil(filteredArr.length / c.maxEnteries);
+		c.start         = 0;
+		c.end           = parseInt(c.start)  + parseInt(c.maxEnteries)  < filteredArr.length ? parseInt(c.start) + parseInt(c.maxEnteries)  : filteredArr.length - 1;
+		c.search        =idname;
+
+
+	}*/
+
+
+
+
+
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>portalai_quick_link</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>PortalAI Quick Link</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+	/*pagination
+	  data.p = data.p || $sp.getValue('p') || 2;
+	data.p = parseInt(data.p);
+	//data.o = data.o || $sp.getValue('o') || $sp.getValue('order_by');
+	//data.d = data.d || $sp.getValue('d') || $sp.getValue('order_direction') || 'asc';
+	data.page_index = data.p - 1;
+	var windowSize = data.window_size || $sp.getValue('maximum_entries') || 5;
+	windowSize = parseInt(windowSize);
+	if (isNaN(windowSize) || windowSize < 1)
+		windowSize = 20;
+	data.window_size = windowSize;
+
+	data.window_start = data.page_index * data.window_size;
+	data.window_end = (data.page_index + 1) * data.window_size;
+//	inc.chooseWindow(data.window_start, data.window_end);
+//	inc._query();
+
+	data.row_count = 5;
+	data.num_pages = Math.ceil(data.row_count / data.window_size);*/
+	//test
+	data.appsList = [];
+	data.allPopUpData = [];
+	data.removeParent = [];
+	data.showBtn = true;
+	data.showLearnMoreBtn = true;
+	data.colorCard = [];
+	data.tempArray = [];
+	data.favouriteapps=[];
+	data.quicklinks=[];
+	data.featuredapps=[];
+	//limit for adding favorite apps
+	var limit =5;
+	data.checkIcon = 'fa fa-heart';
+	data.unCheckIcon = 'fa fa-heart-o';
+	data.favorite_active = false;
+	//if(gs.hasRole('admin'))
+	//data.showBtn = true;
+
+	//if(gs.hasRole('admin') || gs.hasRole('itil') )
+	//data.showLearnMoreBtn = true;
+
+	data.objPopUp = {
+		name: "",
+		desc: "",
+		approvedVersion: "",
+		eos: "",
+		mothlyannualplan: "",
+		purchaseDate: "",
+		validThrough: "",
+		businessUnit: "",
+		businessOwner: "",
+		technicalOwner: "",
+		stakeHolder: "",
+		vendorName: "",
+		vendorWebsite: "",
+		accessControlType: "",
+		extAccesible: "",
+		accessControlDetail: "",
+		extAccessUser: "",
+		InfoSecApproved: "",
+		LastReviedDate: "",
+		Atch: ""
+	};
+	
+	 //Getting Page views
+    var number=gs.getProperty('Set_Page_Views');
+    data.pageviews=Math.floor(number);
+
+    //Total app users
+    var numbers=gs.getProperty('x_ggisu_ideation_0.E360 App User Count');
+    data.total_app_users=Math.floor(numbers);
+	
+	//active citizen developers
+	//data.citizen_developers=gs.getProperty('x_ggisu_sn_coe_por.Active_citizen_developers')
+
+
+	//getting quick links
+	var gr2= new GlideRecord('x_ggisu_cdp_app_st_quick_links')
+	gr2.orderBy('link_text')
+	gr2.query();
+	while (gr2.next()){
+		data.obj={
+			name:gr2.getDisplayValue('link_text'),
+			url:gr2.getDisplayValue('link_url')
+		}
+		data.quicklinks.push(data.obj);
+	}
+	var containsCD = '';
+	var gr1 = new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+	gr1.orderBy('u_name');
+	gr1.query();
+	while (gr1.next()) {
+		data.sys = gr1.sys_id.toString();
+		containsCD = gr1.getDisplayValue('u_app_created_as');
+		//		gs.addInfoMessage(containsCD);
+		data.colorCard.push(containsCD);
+
+
+
+
+		data.objPopUp = {
+			id: gr1.sys_id.toString(),
+			name: gr1.u_name.toString(),
+			desc: gr1.u_short_description.toString()
+		};
+
+		//gs.addInfoMessage(data.objPopUp.name);
+		/*if(data.objPopUp.name.contains('CD'))
+        	{
+        		//gs.addInfoMessage('true');
+        		data.colorCard = 'true';
+        	}*/
+
+
+		data.allPopUpData.push(data.objPopUp);
+	}
+	data.finalColorCards = data.colorCard.toString();
+
+	var gr = new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+	gr.orderBy('u_name');
+	gr.query();
+	while (gr.next()) {
+
+		var tag1 = "";
+		var getTag = new GlideRecord('label_entry');
+		getTag.addQuery('table_key', gr.sys_id.toString());
+		getTag.query();
+		while (getTag.next()) {
+			gs.log('Enter in tag' + getTag.getDisplayValue('label'));
+			tag1 = getTag.getDisplayValue('label') + ' ,';
+
+		}
+
+		var list = gr.getDisplayValue('x_region');
+		var array = list.split(',');
+
+		//   for (var i = 0; i < array.length; i++) {
+		//gs.addInfoMessage("Reference value is: " + array[i]);
+		//data.tempArray = gr.getDisplayValue('x_region').split(", ");
+		//	console.log("Temp array" + data.tempArray);
+
+		var obj = {
+			name: gr.u_name.toString(),
+			desc: gr.u_short_description.toString(),
+			id: gr.sys_id.toString(),
+			tag: tag1,
+			appCreatedAs: gr.getDisplayValue('u_app_created_as'),
+			appDepartment: gr.getValue('u_department'),
+			appDevelopedFor: gr.getValue('u_developed_for'),
+			appVertical: gr.getDisplayValue('x_vertical'),
+			appFte: gr.getValue('u_fte'),
+			appCoo: gr.getValue('u_coo'),
+			groupVertical: gr.getDisplayValue('x_group_vertical'),
+			region: gr.getDisplayValue('x_region').split(", "),
+			typeOfApp: gr.getDisplayValue('x_type_of_application'),
+			img:gr.getValue('u_app_image'),
+			//likedislike:gr.getDisplayValue('like_dislike')
+		}
+		 var like_dislike=''
+		 var app_user=gs.getUserID();
+		var grfav=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app')
+				grfav.addQuery('app_name',gr.sys_id);
+				grfav.addQuery('app_user',app_user);
+				grfav.query();
+				if(grfav.next()){
+					like_dislike='Like'
+				}
+		else{
+			like_dislike='Dislike'
+		}
+		obj.like_dislike=like_dislike;
+    //get Rating of the app.
+	var totalRating = 0;
+	var countOfRatings = 0;
+	var grRating = new GlideRecord('x_ggisu_cdp_app_st_app_feedback');
+	grRating.addQuery('u_app_name',gr.sys_id);
+	grRating.addNotNullQuery('u_rating');
+	grRating.query();
+	countOfRatings = grRating.getRowCount();
+
+	while(grRating.next())
+	{
+		totalRating = totalRating + grRating.u_rating;
+	}
+
+	obj.ratingAverage = Math.round(totalRating/countOfRatings);
+		
+	//   }  
+		data.appsList.push(obj);
+		data.summaryRecords = {
+			list: data.appsList,
+			pageIndex: 0
+		};
+
+
+	
+}
+	
+	
+
+	//adding app to favorites
+	if(input){
+//gs.addInfoMessage('inputs')
+		if(input.app_id1){
+			var app_user=gs.getUserID();
+			var favapp=0;
+			var grlike;
+			grlike=new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+			grlike.addQuery('sys_id',input.app_id1);
+			grlike.query();
+			if(grlike.next()){
+
+				var grfav=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app')
+				grfav.addQuery('app_name',input.app_id1);
+				grfav.addQuery('app_user',app_user);
+				grfav.orderByDesc('sys_created_on')
+				grfav.query();
+				arraym=[]
+			  if(grfav.next()){
+					
+					grfav.like_dislike='Dislike';
+					grlike.update();
+        	grfav.deleteRecord();
+					gs.addErrorMessage('App has been removed from favorites<br/>'+'Sorry you cannot add anymore apps to favorite');
+					//data.favorite_active = true;
+
+				}
+				else{
+					var favcount=new GlideAggregate('x_ggisu_cdp_app_st_faviorites_app');
+					favcount.addQuery('app_user', app_user);
+					favcount.addAggregate('COUNT');
+					favcount.query();
+					if(favcount.next()){
+						favapp=favcount.getAggregate('COUNT');
+					}
+					//gs.addInfoMessage(favapp)
+					
+					if (favapp>=limit){
+						//var grfavlimit=new GlideRecord('x_ggisu_sn_coe_por_apps_favourites')
+				    //grfavlimit.addQuery('sys_id',arraym[0]);
+						//grfavlimit.query()
+					//	if(grfavlimit.next()){
+							
+					//		grfavlimit.deleteRecord();
+					//	}
+						gs.addErrorMessage('Sorry you cannot add anymore apps to favorite<br/>'+' You can add atmost 5 applications to your favorite list');
+						return false;
+					}
+					else{
+
+						grfav.app_name=input.app_id1;
+						grfav.app_user=gs.getUserID();
+						grfav.insert();
+						grfav.like_dislike='Like';
+						grlike.update();
+						gs.addInfoMessage("App has been added to your favorites");
+						//data.favorite_active = false;
+
+					}
+				}
+			}
+		}
+		if(input.action=="delete"){
+
+			var grfav1=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app')
+			grfav1.addQuery('app_name',input.num)
+			grfav1.query()
+			if(grfav1.next()){
+				var removelike;
+				removelike=new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+				removelike.addQuery('sys_id',input.num);
+				removelike.query();
+				if(removelike.next()){
+					removelike.like_dislike='Dislike';
+					removelike.update();
+					grfav1.deleteRecord();
+					gs.addErrorMessage('App has been removed from favorites');
+				}
+
+			}
+		}
+
+		if(input.share_with1){
+			gs.addInfoMessage('done')
+			var m=[];
+			var	sharewith=new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+			sharewith.addQuery('sys_id',input.app_name);
+			sharewith.query();
+			var details={};	
+			if(sharewith.next()){
+				var user=new GlideRecord('sys_user')
+				user.addQuery('sys_id',input.share_with1)
+				user.query()
+				if (user.next()){
+					details.sharewith= user.getDisplayValue('name');
+				}
+				details.comments=input.comments
+
+				details.sharedfrom=gs.getUserDisplayName()
+				details.appname=sharewith.getDisplayValue('u_name')
+				details.application_link=sharewith.getDisplayValue('application_link')
+
+				//	m.push(details);
+			}
+
+			gs.eventQueue('x_ggisu_sn_coe_por.cdp_apps',sharewith,input.share_with1,JSON.stringify(details));
+					
+		}
+	}		
+
+
+	//Favorite apps
+	var app_user=gs.getUserID();
+	var grfa=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app')
+	grfa.addQuery('app_user',app_user);
+	grfa.orderByDesc('sys_created_on')
+	grfa.query();
+	while(grfa.next()){
+		var gra = new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+		gra.addQuery('sys_id',grfa.app_name)
+		gra.orderByDesc('number');
+		gra.query();
+		while (gra.next()) {
+
+			var objPopUp = {
+				id: gra.sys_id.toString(),
+				name: gra.u_name.toString(),
+				desc: gra.u_short_description.toString(),
+				//tag: tag1,
+				appCreatedAs: gra.getDisplayValue('u_app_created_as'),
+				appDepartment: gra.getValue('u_department'),
+				appDevelopedFor: gra.getValue('u_developed_for'),
+				appVertical: gra.getDisplayValue('x_vertical'),
+				appFte: gra.getValue('u_fte'),
+				appCoo: gra.getValue('u_coo'),
+				groupVertical: gra.getDisplayValue('x_group_vertical'),
+				region: gra.getDisplayValue('x_region').split(", "),
+				typeOfApp: gra.getDisplayValue('x_type_of_application'),
+				img:gra.getValue('u_app_image'),
+				applink:gra.getValue('application_link')
+			};
+	data.like_dislike=gra.like_dislike.getDisplayValue();
+	var totalRating1 = 0;
+	var countOfRatings1 = 0;
+	var grRating = new GlideRecord('x_ggisu_cdp_app_st_app_feedback');
+	grRating.addQuery('u_app_name',gra.sys_id);
+	grRating.addNotNullQuery('u_rating');
+	grRating.query();
+	countOfRatings1 = grRating.getRowCount();
+
+	while(grRating.next())
+	{
+		totalRating1 = totalRating1 + grRating.u_rating;
+	}
+
+	objPopUp.ratingAverage = Math.round(totalRating1/countOfRatings1);
+		
+			data.favouriteapps.push(objPopUp);
+			data.favouriteRecords = {
+				list:data.favouriteapps,
+				pageIndex1: 0
+			};
+			//gs.addInfoMessage(data.favouriteapps)
+		}
+
+	}
+	//Featured apps
+	var gr3 = new GlideRecord('x_ggisu_cdp_app_st_cdp_portal');
+	gr3.orderByDesc('sys_created_on');
+	gr3.setLimit(3);
+	gr3.query();
+
+	while (gr3.next()) {
+
+		var obj1 = {
+			id: gr3.sys_id.toString(),
+			name: gr3.u_name.toString(),
+			desc: gr3.u_short_description.toString(),
+			//tag: tag1,
+			appCreatedAs: gr3.getDisplayValue('u_app_created_as'),
+			appDepartment: gr3.getValue('u_department'),
+			appDevelopedFor: gr3.getValue('u_developed_for'),
+			appVertical: gr3.getDisplayValue('x_vertical'),
+			appFte: gr3.getValue('u_fte'),
+			appCoo: gr3.getValue('u_coo'),
+			groupVertical: gr3.getDisplayValue('x_group_vertical'),
+			region: gr3.getDisplayValue('x_region').split(", "),
+			typeOfApp: gr3.getDisplayValue('x_type_of_application'),
+			img:gr3.getValue('u_app_image'),
+			likedislike:gr3.getValue('like_dislike')
+		};
+		var like_dislike1=''
+		 var app_user=gs.getUserID();
+		var grfav2=new GlideRecord('x_ggisu_cdp_app_st_faviorites_app')
+				grfav2.addQuery('app_name',gr3.sys_id);
+				grfav2.addQuery('app_user',app_user);
+				grfav2.query();
+				if(grfav2.next()){
+					like_dislike1='Like'
+				}
+		else{
+			like_dislike1='Dislike'
+		}
+		obj1.like_dislike=like_dislike1;
+		var totalRating2 = 0;
+	var countOfRatings2 = 0;
+	var grRating = new GlideRecord('x_ggisu_cdp_app_st_app_feedback');
+	grRating.addQuery('u_app_name',gr3.sys_id);
+	grRating.addNotNullQuery('u_rating');
+	grRating.query();
+	countOfRatings2 = grRating.getRowCount();
+
+	while(grRating.next())
+	{
+		totalRating2 = totalRating2 + grRating.u_rating;
+	}
+
+	obj1.ratingAverage = Math.round(totalRating2/countOfRatings2);
+		
+		data.featuredapps.push(obj1);
+	}
+
+
+	//Below code is for left filter
+
+	data.pbody1 = [];
+	data.pbody2 = [];
+	data.pbody3 = [];
+	data.pbody4 = [];
+	data.pbody5 = [];
+	data.pbody6 = [];
+	data.pbody7 = [];
+
+
+
+	var grDepartment = new GlideAggregate('x_ggisu_cdp_app_st_cdp_portal'); //GlideAggregate query
+	grDepartment.addAggregate('count');
+	grDepartment.addNotNullQuery('u_department'); //Count aggregate (only necessary for a count of items of each OS)
+	grDepartment.orderBy('u_department');
+	grDepartment.groupBy('u_department');
+	grDepartment.addNotNullQuery('u_department');
+	grDepartment.query();
+	while (grDepartment.next()) {
+		var ph1 = {};
+		//data.heading1 = 'Department';
+		ph1.departmentNames = grDepartment.getDisplayValue('u_department');
+		//ph1.headingText2 = cardApps.getDisplayValue('u_app_created_as');
+		data.pbody1.push(ph1);
+	}
+
+	var grAppCreatedAs = new GlideAggregate('x_ggisu_cdp_app_st_cdp_portal'); //GlideAggregate query
+	grAppCreatedAs.addAggregate('count');
+	grAppCreatedAs.addNotNullQuery('u_app_created_as'); //Count aggregate (only necessary for a count of items of each OS)
+	grAppCreatedAs.orderBy('u_app_created_as');
+	grAppCreatedAs.groupBy('u_app_created_as');
+	//grAppCreatedAs.addEncodedQuery('u_app_created_asINcitizen_development,custom_development');
+	grAppCreatedAs.query();
+	//gs.addInfoMessage(grAppCreatedAs.getRowCount());
+	while (grAppCreatedAs.next()) {
+
+		var ph2 = {};
+		//data.heading1 = 'Department';
+		ph2.appCreatedAsNames = grAppCreatedAs.getDisplayValue('u_app_created_as');
+		//ph1.headingText2 = cardApps.getDisplayValue('u_app_created_as');
+		data.pbody2.push(ph2);
+	}
+
+
+	var grVertical = new GlideAggregate('x_ggisu_cdp_app_st_cdp_portal'); //GlideAggregate query
+	grVertical.addAggregate('count');
+	grVertical.addNotNullQuery('x_vertical'); //Count aggregate (only necessary for a count of items of each OS)
+	grVertical.orderBy('x_vertical');
+	grVertical.groupBy('x_vertical');
+	//grAppCreatedAs.addEncodedQuery('u_app_created_asINcitizen_development,custom_development');
+	grVertical.query();
+	//gs.addInfoMessage(grAppCreatedAs.getRowCount());
+	while (grVertical.next()) {
+
+		var ph3 = {};
+		//data.heading1 = 'Department';
+		ph3.verticalNames = grVertical.getDisplayValue('x_vertical');
+		//ph1.headingText2 = cardApps.getDisplayValue('u_app_created_as');
+		data.pbody3.push(ph3);
+	}
+
+
+	var grFte = new GlideAggregate('x_ggisu_cdp_app_st_cdp_portal'); //GlideAggregate query
+	grFte.addAggregate('count');
+	grFte.addNotNullQuery('u_fte'); //Count aggregate (only necessary for a count of items of each OS)
+	grFte.orderBy('u_fte');
+	grFte.groupBy('u_fte');
+	//grAppCreatedAs.addEncodedQuery('u_app_created_asINcitizen_development,custom_development');
+	grFte.query();
+	//gs.addInfoMessage(grAppCreatedAs.getRowCount());
+	while (grFte.next()) {
+
+		var ph4 = {};
+		//data.heading1 = 'Department';
+		ph4.fteNames = grFte.getDisplayValue('u_fte');
+		//ph1.headingText2 = cardApps.getDisplayValue('u_app_created_as');
+		data.pbody4.push(ph4);
+	}
+
+	var grCoo = new GlideAggregate('x_ggisu_cdp_app_st_cdp_portal'); //GlideAggregate query
+	grCoo.addAggregate('count');
+	grCoo.addNotNullQuery('u_coo'); //Count aggregate (only necessary for a count of items of each OS)
+	grCoo.orderBy('u_coo');
+	grCoo.groupBy('u_coo');
+	//grAppCreatedAs.addEncodedQuery('u_app_created_asINcitizen_development,custom_development');
+	grCoo.query();
+	//gs.addInfoMessage(grAppCreatedAs.getRowCount());
+	while (grCoo.next()) {
+
+		var ph5 = {};
+		//data.heading1 = 'Department';
+		ph5.cooNames = grCoo.getDisplayValue('u_coo');
+		//ph1.headingText2 = cardApps.getDisplayValue('u_app_created_as');
+		data.pbody5.push(ph5);
+	}
+
+	var grGroup = new GlideAggregate('x_ggisu_cdp_app_st_cdp_portal');
+	grGroup.addNotNullQuery('x_group_vertical'); //GlideAggregate query
+	grGroup.addAggregate('count'); //Count aggregate (only necessary for a count of items of each OS)
+	grGroup.orderBy('x_group_vertical');
+	grGroup.groupBy('x_group_vertical');
+	grGroup.query();
+
+	while (grGroup.next()) {
+
+		var ph6 = {};
+		ph6.groupVertical = grGroup.getDisplayValue('x_group_vertical');
+		data.pbody6.push(ph6);
+	}
+
+/*	var grRegion = new GlideAggregate('x_ggisu_sn_coe_por_coe_region');
+	grRegion.addNotNullQuery('x_region_name'); //GlideAggregate query
+	grRegion.addAggregate('count'); //Count aggregate (only necessary for a count of items of each OS)
+	grRegion.orderBy('x_region_name');
+	grRegion.groupBy('x_region_name');
+	grRegion.query();
+
+	while (grRegion.next()) {
+
+		var ph7 = {};
+		ph7.region = grRegion.getDisplayValue('x_region_name');
+		ph7.regionBackEnd = grRegion.getValue('x_region_name');
+		data.pbody7.push(ph7);
+
+	}*/
+
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-14 14:14:51</sys_created_on>
+        <sys_id>c036c92687d806906c60a9383cbb35e0</sys_id>
+        <sys_mod_count>26</sys_mod_count>
+        <sys_name>PortalAI Quick Link</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_widget_c036c92687d806906c60a9383cbb35e0</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-03-04 09:03:28</sys_updated_on>
+        <template><![CDATA[<div class="container" style="margin-top: 20px;">
+    <div class="row">
+      <div class="all_app_heading" style="color: white; font: normal normal normal 22px/30px Guardian TextEgyp;;">
+        All Apps
+      </div>
+      <div class="all_app_desc" id="all_app">
+     </div>
+ 
+  </div>
+  </div>
+<div class="container">
+  <div class="col-md-8" style="padding-left:0">
+      <div class="all_app_desc" id="all_app">
+        <div class="col-md-6" ng-repeat="app in data.summaryRecords.list track by $index"  ng-if="c.showRecords(data.summaryRecords, $index)"  style="padding-right:15px;">
+         
+          <div class="panel" style="border:none;">
+            <span class="app_img"><img src="/sys_attachment.do?sys_id={{app.img}}" alt=""  style="width:403px;height:160px;filter: brightness(100%);"></span>
+            <div class="all_app_icon">
+              <img class="share" src="x_ggisu_sn_coe_por.share.svg" ng-click="c.showDetails(app.id)" />
+            </div>
+
+            <div class="all_app_icon_heart">
+              <img class="heart" ng-if="app.like_dislike==='Like'" src="x_ggisu_sn_coe_por.heart.svg" ng-click="c.deleterec(app.id)" /></div>
+            <div class="all_app_icon_heart2">
+              <i  ng-if="app.like_dislike==='Dislike'||app.likedislike===''" class="fa fa-heart-o"  ng-click="c.addtofavourites(app.id)"></i>
+            </div>   &nbps;
+            <a ng-href="/clientzero?id=cdp_app_details&aid={{app.id}}" target="_blank">
+              <div class="box-app" style="background-color: #011122;">
+                <div class="box-heading" style="color: #5FC8D7; font: normal normal normal 20px/28px 'Guardian TextSans', sans-serif;">{{app.name}}</div>
+                <div class="rating" ng-if="app.ratingAverage"><i class="fa fa-star kb-star-on"></i><span class="average_rating">
+                  {{app.ratingAverage}} (Average Rating)
+                  </span></div>
+                <div class="box-desc" style="color: white; font: normal normal normal 16px/21px 'Guardian TextSans', sans-serif;">{{app.desc}}</div>
+              </div>
+            </a>
+          </div>
+   </div>
+       </div>
+      </div>
+     
+  <!--    <div class="col-md-4" style="padding-left:110px;width:23.25%">
+       
+          <div class="panel1" style="border:none;" style="background-color: #011122;" width: 86.25%;>
+            <div class="quick_links_h" style="color: #5FC8D7; font: normal normal normal 20px/20px Guardian TextSans;">
+              Quick links
+            </div>
+            <div ng-repeat="i in data.quicklinks" style="color: white;">
+              <a ng-href={{i.url}} target="_blank"><div class="linknames" style="font: normal normal normal 14px/20px Guardian TextSans; color: white;"> {{i.name}}</div></a>
+            </div>
+          </div>
+        </div> -->
+      </div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="pull-right">
+        <button class="previous-page" ng-click="c.gotoPage(data.summaryRecords, -1)" ng-disabled="data.summaryRecords.pageIndex == 0" ng-if="data.summaryRecords.list.length>c.pageSize">
+          <i class="fa fa-chevron-left"></i>
+        </button>
+        <span class="pagination-content" ng-if="data.summaryRecords.list.length>c.pageSize">Page {{data.summaryRecords.pageIndex + 1}} / Page {{data.summaryRecords.pages.length || 1}}</span>
+        <button class="next-page" ng-click="c.gotoPage(data.summaryRecords, 1)" ng-disabled="data.summaryRecords.endIndex == data.summaryRecords.list.length-1" ng-if="data.summaryRecords.list.length>c.pageSize">
+          <i class="fa fa-chevron-right"></i>
+
+        </button>
+      </div>
+    </div>  
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

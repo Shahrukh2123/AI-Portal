@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl">
+    <sys_security_acl action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <admin_overrides>true</admin_overrides>
+        <advanced>false</advanced>
+        <condition/>
+        <description>Default access control on x_ggisu_cdp_app_st_app_comment</description>
+        <local_or_existing>Local</local_or_existing>
+        <name>x_ggisu_cdp_app_st_app_comment</name>
+        <operation display_value="write">write</operation>
+        <script/>
+        <security_attribute/>
+        <sys_class_name>sys_security_acl</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-14 14:03:55</sys_created_on>
+        <sys_id>48b34926875806906c60a9383cbb3544</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_ggisu_cdp_app_st_app_comment</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sys_security_acl_48b34926875806906c60a9383cbb3544</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-14 14:03:55</sys_updated_on>
+        <type display_value="record">record</type>
+    </sys_security_acl>
+</record_update>

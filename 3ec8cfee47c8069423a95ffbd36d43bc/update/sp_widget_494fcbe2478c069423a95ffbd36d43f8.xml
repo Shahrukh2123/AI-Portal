@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($uibModal, $scope, $rootScope) {
+  /* widget controller */
+  var c = this;
+	c.data.roleName = '';
+	
+// To open switch role model window
+ c.openModal = function() {
+ c.modalInstance = $uibModal.open({
+ templateUrl: 'modalTemplate',
+ scope: $scope
+ });
+ }
+ 
+ c.closeModal = function() {
+ c.modalInstance.close();
+	 
+	 if(c.data.parameter !='' && c.data.parameter!=null){
+		 var redirectRole = '?id='+c.data.parameter+'&role='+c.data.roleName;
+     top.window.location = redirectRole;
+	 }
+	 else{
+		 var redirectNoRole = '?id='+c.data.homepage+'&role='+c.data.roleName;
+		 top.window.location = redirectNoRole;
+	 }
+	 
+ }
+	
+	c.endRole = function(){
+		if(c.data.parameter !='' && c.data.parameter!=null){
+		 var redirectEnd = '?id='+c.data.parameter;
+     top.window.location = redirectEnd;
+	 }
+	 else{
+		 var redirectEnd2 = '?id='+c.data.homepage;
+		 top.window.location = redirectEnd2;
+	 }
+	}
+	
+	$scope.$on("field.change", function(evt, parms) {
+		
+		c.data.roleName = parms.displayValue;
+		//$rootScope.$broadcast('roleEvent', roleName);
+
+	});
+	
+	
+	
+	
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>a:hover {&#13;
+  color: #4e4b4b;&#13;
+}&#13;
+a {font-size: 15px}&#13;
+&#13;
+div{&#13;
+  display:inline-block;&#13;
+}&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>ai_header</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>AI store header</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	
+	data.parameter = $sp.getParameter('id');
+	data.homepage = '';
+	data.endImp = 'no';
+	data.endParameter = $sp.getParameter('role');
+	
+	if(data.endParameter != '' && data.endParameter != null){
+		data.endImp = 'yes';
+	}
+	
+	
+	var grPortal = new GlideRecord('sp_portal');
+	grPortal.addQuery('url_suffix','snportal');
+	grPortal.query();
+	
+	if(grPortal.next()){
+		data.homepage = grPortal.getDisplayValue('homepage');
+	}
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>703329546</sys_created_by>
+        <sys_created_on>2024-02-02 13:58:03</sys_created_on>
+        <sys_id>494fcbe2478c069423a95ffbd36d43f8</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>AI store header</sys_name>
+        <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
+        <sys_update_name>sp_widget_494fcbe2478c069423a95ffbd36d43f8</sys_update_name>
+        <sys_updated_by>703329546</sys_updated_by>
+        <sys_updated_on>2024-02-14 08:26:02</sys_updated_on>
+        <template><![CDATA[<div>
+<!-- your widget template-->
+  <br>
+  <div ng-if="data.endImp == 'yes'">
+    <a href="" ng-click="c.endRole()" style="color:#FF555F">End role switch</a> &nbsp;
+  </div>
+  <!--
+  <a href="" ng-click="c.openModal()">Switch role</a> &nbsp;
+  <a href="https://genpactdevelop.service-now.com/snportal?id=idea" target="_blank">Submit an Idea</a>
+-->
+</div>
+
+<script type="text/ng-template" id="modalTemplate">
+ <div class="panel panel-default">
+ <div class="panel-heading">
+ <h4 class="panel-title">Switch role</h4>
+   </div>
+ <div class="panel-body wrapper-xl">
+ <p>Select role:</p>
+ <sn-record-picker id="role" field="role" table="'x_ggisu_sn_coe_por_rbac'" display-field="'x_role_name'" default-query="'x_name=javascript:gs.getUserID()'" search-fields="'x_role_name'" page-size="100" ></sn-record-picker>
+   </div>
+ <div class="panel-footer text-right">
+ <button class="btn btn-primary" ng-click="c.closeModal()">${Submit}</button>
+ </div>
+ </div>
+</script>]]></template>
+    </sp_widget>
+</record_update>
