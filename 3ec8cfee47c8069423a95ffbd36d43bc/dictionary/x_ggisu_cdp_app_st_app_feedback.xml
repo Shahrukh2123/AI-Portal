@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="54a8206a875cc2906c60a9383cbb358c" label="App feedback" max_length="40" name="x_ggisu_cdp_app_st_app_feedback" type="collection">
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="App Name" max_length="32" name="app_name" reference="x_ggisu_cdp_app_st_cdp_portal" type="reference"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Comments" max_length="500" name="u_comments" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Comment approval" max_length="40" name="u_comment_approval" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Pending" sequence="10" value="pending"/>
+                <element inactive_on_update="false" label="Approved" sequence="20" value="approved"/>
+                <element inactive_on_update="false" label="Rejected" sequence="30" value="rejected"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Like/Dislike" max_length="40" name="u_like_dislike" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Dislike" value="dislike"/>
+                <element inactive_on_update="false" label="Like" value="like"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Rating" max_length="40" name="u_rating" type="integer"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="User" max_length="32" name="u_user" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="app_name"/>
+        </index>
+        <index name="index2">
+            <element name="u_user"/>
+        </index>
+    </element>
+</database>

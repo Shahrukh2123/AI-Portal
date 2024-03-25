@@ -95,7 +95,7 @@ section.page {&#13;
         <search_application display_value="Service Portal Default Search Application">00731b9d5b231010d9a5ce1a8581c7dd</search_application>
         <search_results_configuration display_value="Service Portal Search">80eb579d53671010968addeeff7b1215</search_results_configuration>
         <sp_chat_queue/>
-        <sp_rectangle_menu display_value="Idea Menu">1ab6e9f44775e95424d43b37e26d4337</sp_rectangle_menu>
+        <sp_rectangle_menu display_value="">1ab6e9f44775e95424d43b37e26d4337</sp_rectangle_menu>
         <sys_class_name>sp_portal</sys_class_name>
         <sys_created_by>703329553</sys_created_by>
         <sys_created_on>2024-03-01 10:45:19</sys_created_on>

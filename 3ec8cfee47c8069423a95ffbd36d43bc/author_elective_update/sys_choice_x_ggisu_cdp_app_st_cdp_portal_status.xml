@@ -6,7 +6,6 @@
             <sys_class_name>sys_choice_set</sys_class_name>
             <sys_created_by>703329546</sys_created_by>
             <sys_created_on>2024-03-04 08:27:37</sys_created_on>
-            <sys_id>47ec2dec97780e106ca8f0c6f053af51</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>status</sys_name>
             <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
@@ -30,7 +29,6 @@
             <sys_created_on>2024-03-04 08:27:37</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>cddc216c97b80e106ca8f0c6f053afca</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>703329546</sys_updated_by>
             <sys_updated_on>2024-03-04 08:27:37</sys_updated_on>
@@ -50,7 +48,6 @@
             <sys_created_on>2024-03-04 08:27:56</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>c8fc6de497b80e106ca8f0c6f053afed</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>703329546</sys_updated_by>
             <sys_updated_on>2024-03-04 08:27:56</sys_updated_on>
@@ -70,7 +67,6 @@
             <sys_created_on>2024-03-04 08:28:17</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>510d692097f80e106ca8f0c6f053af20</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>703329546</sys_updated_by>
             <sys_updated_on>2024-03-04 08:28:17</sys_updated_on>
@@ -90,7 +86,6 @@
             <sys_created_on>2024-03-04 08:28:27</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>591da92097f80e106ca8f0c6f053af44</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>703329546</sys_updated_by>
             <sys_updated_on>2024-03-04 08:28:27</sys_updated_on>

@@ -2,7 +2,7 @@
     <sys_dictionary action="INSERT_OR_UPDATE" element="x_business_value" table="x_ggisu_cdp_app_st_cdp_portal">
         <active>true</active>
         <array>false</array>
-        <attributes/>
+        <attributes>edge_encryption_enabled=true</attributes>
         <audit>false</audit>
         <calculation><![CDATA[(function calculatedFieldValue(current) {
 
@@ -52,7 +52,6 @@
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>703329546</sys_created_by>
         <sys_created_on>2024-03-04 08:19:17</sys_created_on>
-        <sys_id>a3ea692c97f40e106ca8f0c6f053af5f</sys_id>
         <sys_name>Business Value</sys_name>
         <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
         <sys_policy/>

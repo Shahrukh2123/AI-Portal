@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="dabdb06b470cc610d83d3247e26d438b" label="AI Portal" max_length="40" name="x_ggisu_cdp_app_st_cdp_portal" type="collection">
+        <element label="Application Link" max_length="1024" name="application_link" type="url"/>
+        <element label="Business Impact" mandatory="true" max_length="100" name="business_impact" type="string"/>
+        <element label="Email" max_length="80" name="business_owner_email" read_only="true" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Business Value - High/Med/Low" max_length="40" name="business_value" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Low" value="low"/>
+                <element inactive_on_update="false" label="Medium" value="medium"/>
+                <element inactive_on_update="false" label="High" sequence="10" value="high"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Case Study" max_length="40" name="case_study" type="file_attachment"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Category" mandatory="true" max_length="40" name="category" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="AI" sequence="1" value="ai"/>
+                <element inactive_on_update="false" label="GenAI" sequence="2" value="genai"/>
+                <element inactive_on_update="false" label="Kore.AI" sequence="3" value="bot"/>
+                <element inactive_on_update="false" label="RPA" sequence="4" value="rpa"/>
+            </choice>
+        </element>
+        <element label="Description" mandatory="true" max_length="1000" name="description" type="string"/>
+        <element label="ETA / Go Live Date" max_length="40" name="eta" type="glide_date"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Function" mandatory="true" max_length="40" name="function" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Enabler" value="enabler"/>
+                <element inactive_on_update="false" label="Finance" value="finance"/>
+                <element inactive_on_update="false" label="Growth Ops" value="growth_ops"/>
+                <element inactive_on_update="false" label="HR" value="hr"/>
+                <element inactive_on_update="false" label="I&amp;L" value="ial"/>
+                <element inactive_on_update="false" label="IT" value="it"/>
+                <element inactive_on_update="false" label="LDT" value="ldt"/>
+                <element inactive_on_update="false" label="Legal" value="legal"/>
+                <element inactive_on_update="false" label="Marketing" value="marketing"/>
+                <element inactive_on_update="false" label="Operations" value="operations"/>
+                <element inactive_on_update="false" label="Sourcing" value="sourcing"/>
+            </choice>
+        </element>
+        <element label="Implemented On" max_length="40" name="implemented_on" type="glide_date"/>
+        <element label="Like/Dislike" max_length="40" name="like_dislike" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Go-to-market solution (Yes / No) - ready for external showcase" max_length="40" name="market_solution" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="No" value="no"/>
+                <element inactive_on_update="false" label="Yes" value="yes"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Primary developer image" max_length="40" name="primary_developer_image" type="file_attachment"/>
+        <element label="Prioritization" max_length="80" name="prioritization" type="string"/>
+        <element label="Quantified Benefit" max_length="80" name="quantified_benefit" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Replicability (Yes / No) - has been executed in other functions as well" max_length="40" name="replicability" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="No" value="no"/>
+                <element inactive_on_update="false" label="Yes" value="yes"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Sequence" max_length="40" name="sequence" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Status" max_length="40" name="status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Build" value="build"/>
+                <element inactive_on_update="false" label="In-discussion" value="indiscussion"/>
+                <element inactive_on_update="false" label="Not Started" value="not_started"/>
+                <element inactive_on_update="false" label="Testing" value="testing"/>
+            </choice>
+        </element>
+        <element label="Stream" max_length="40" name="stream" type="string"/>
+        <element label="Email" max_length="80" name="technical_owner_email" read_only="true" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="App image" mandatory="true" max_length="40" name="u_app_image" type="file_attachment"/>
+        <element attributes="edge_encryption_enabled=true" label="Attachment 1" max_length="40" name="u_attachment_1" type="file_attachment"/>
+        <element attributes="edge_encryption_enabled=true" label="Attachment 2" max_length="40" name="u_attachment_2" type="file_attachment"/>
+        <element attributes="edge_encryption_enabled=true" label="Average rating" max_length="40" name="u_average_rating" type="integer"/>
+        <element label="COO" max_length="40" name="u_coo" type="string"/>
+        <element attributes="edge_encryption_enabled=true,omit_sys_original=true" label="Cost" max_length="20" name="u_cost" type="currency"/>
+        <element label="Department" max_length="32" name="u_department" type="string"/>
+        <element label="Developed for" mandatory="true" max_length="40" name="u_developed_for" type="string"/>
+        <element label="FTE" max_length="40" name="u_fte" type="string"/>
+        <element label="Group vertical" max_length="40" name="u_group_vertical" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Tech Stack" max_length="500" name="u_key_artifactes" type="html"/>
+        <element attributes="edge_encryption_enabled=true" label="Key Features" mandatory="true" max_length="500" name="u_key_features" type="html"/>
+        <element label="Use Case" mandatory="true" max_length="80" name="u_name" type="string"/>
+        <element label="Primary developer description" max_length="500" name="u_primary_developer_description" type="string"/>
+        <element label="Primary developer email" max_length="34" name="u_primary_developer_email" read_only="true" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" choice="1" label="Primary developer name" max_length="32" name="u_primary_developer_name" reference="sys_user" type="reference">
+            <choice/>
+        </element>
+        <element label="Secondary developer description" max_length="500" name="u_secondary_developer_description" type="string"/>
+        <element label="Secondary developer email" max_length="34" name="u_secondary_developer_email" read_only="true" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Secondary developer image" max_length="40" name="u_secondary_developer_image" type="file_attachment"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" choice="1" label="Secondary developer name" max_length="32" name="u_secondary_developer_name" reference="sys_user" type="reference">
+            <choice/>
+        </element>
+        <element label="Short Description" mandatory="true" max_length="300" name="u_short_description" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Sliding image 1" max_length="40" name="u_sliding_image_1" type="file_attachment"/>
+        <element attributes="edge_encryption_enabled=true" label="Sliding image 2" max_length="40" name="u_sliding_image_2" type="file_attachment"/>
+        <element attributes="edge_encryption_enabled=true" label="Sliding image 3" max_length="40" name="u_sliding_image_3" type="file_attachment"/>
+        <element attributes="edge_encryption_enabled=true" label="Sliding image 4" max_length="40" name="u_sliding_image_4" type="file_attachment"/>
+        <element attributes="edge_encryption_enabled=true" label="Summary" mandatory="true" max_length="500" name="u_summary" type="html"/>
+        <element attributes="edge_encryption_enabled=true" label="Version" max_length="40" name="version" type="integer"/>
+        <element label="Video" max_length="1024" name="video" type="url"/>
+        <element attributes="edge_encryption_enabled=true" label="Video_link" max_length="40" name="video_link" type="video"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Sponsor" mandatory="true" max_length="32" name="x_business_owner" reference="sys_user" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Business Value" max_length="40" name="x_business_value" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Compliance" value="compliance"/>
+                <element inactive_on_update="false" label="CX- Improvement" value="cx_improvement"/>
+                <element inactive_on_update="false" label="Productivity / Cost Reduction" value="productivity"/>
+                <element inactive_on_update="false" label="Revenue Optimization" value="revenue"/>
+            </choice>
+        </element>
+        <element label="Region" max_length="40" name="x_region" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Build Owner" mandatory="true" max_length="32" name="x_technical_owner" reference="sys_user" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Type of application" max_length="40" name="x_type_of_application" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Global" sequence="0" value="global"/>
+                <element inactive="true" inactive_on_update="true" label="Local" sequence="0" value="local"/>
+                <element inactive_on_update="false" label="Scoped" sequence="1" value="scoped"/>
+            </choice>
+        </element>
+        <element label="Sub Vertical" max_length="40" name="x_vertical" type="string"/>
+        <index name="index">
+            <element name="u_primary_developer_name"/>
+        </index>
+        <index name="index2">
+            <element name="u_secondary_developer_name"/>
+        </index>
+        <index name="index3">
+            <element name="x_business_owner"/>
+        </index>
+        <index name="index4">
+            <element name="x_technical_owner"/>
+        </index>
+    </element>
+</database>

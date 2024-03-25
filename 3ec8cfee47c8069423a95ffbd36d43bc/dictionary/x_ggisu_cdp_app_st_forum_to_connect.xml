@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="fdbe55658734ce106c60a9383cbb3575" label="Forum to connect" max_length="40" name="x_ggisu_cdp_app_st_forum_to_connect" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Date" max_length="40" name="date" type="glide_date"/>
+        <element attributes="edge_encryption_enabled=true" label="Forum Agenda" max_length="4000" name="forum_agenda" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="S.No" max_length="40" name="s_no" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Time" max_length="100" name="time" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Timings" max_length="40" name="timings" type="glide_time"/>
+        <element attributes="edge_encryption_enabled=true" label="Zoom Id" max_length="100" name="zoom_id" type="string"/>
+    </element>
+</database>

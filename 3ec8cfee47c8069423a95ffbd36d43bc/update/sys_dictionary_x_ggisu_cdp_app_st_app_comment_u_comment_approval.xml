@@ -2,7 +2,7 @@
     <sys_dictionary action="INSERT_OR_UPDATE" element="u_comment_approval" table="x_ggisu_cdp_app_st_app_comment">
         <active>true</active>
         <array>false</array>
-        <attributes/>
+        <attributes>edge_encryption_enabled=true</attributes>
         <audit>false</audit>
         <calculation><![CDATA[(function calculatedFieldValue(current) {
 
@@ -52,7 +52,6 @@
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>703329546</sys_created_by>
         <sys_created_on>2024-02-14 14:06:15</sys_created_on>
-        <sys_id>752405a2879806906c60a9383cbb352c</sys_id>
         <sys_name>Comment approval</sys_name>
         <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
         <sys_policy/>

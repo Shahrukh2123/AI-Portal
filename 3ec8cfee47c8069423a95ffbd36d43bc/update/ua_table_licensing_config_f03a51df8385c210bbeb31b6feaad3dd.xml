@@ -4,22 +4,22 @@
         <license_condition/>
         <license_model>none</license_model>
         <license_roles/>
-        <name>x_ggisu_cdp_app_st_cdp_portal</name>
+        <name>x_ggisu_cdp_app_st_app_comment</name>
         <op_delete>true</op_delete>
         <op_insert>true</op_insert>
         <op_update>true</op_update>
         <owner_condition/>
         <sys_class_name>ua_table_licensing_config</sys_class_name>
         <sys_created_by>703329546</sys_created_by>
-        <sys_created_on>2024-02-05 05:56:37</sys_created_on>
-        <sys_id>46dd78eb470cc610d83d3247e26d43ce</sys_id>
+        <sys_created_on>2024-02-14 14:03:57</sys_created_on>
+        <sys_id>f03a51df8385c210bbeb31b6feaad3dd</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>x_ggisu_cdp_app_st_cdp_portal</sys_name>
+        <sys_name>x_ggisu_cdp_app_st_app_comment</sys_name>
         <sys_package display_value="AI Portal" source="x_ggisu_cdp_app_st">3ec8cfee47c8069423a95ffbd36d43bc</sys_package>
         <sys_policy/>
         <sys_scope display_value="AI Portal">3ec8cfee47c8069423a95ffbd36d43bc</sys_scope>
-        <sys_update_name>ua_table_licensing_config_46dd78eb470cc610d83d3247e26d43ce</sys_update_name>
+        <sys_update_name>ua_table_licensing_config_f03a51df8385c210bbeb31b6feaad3dd</sys_update_name>
         <sys_updated_by>703329546</sys_updated_by>
-        <sys_updated_on>2024-02-05 05:56:37</sys_updated_on>
+        <sys_updated_on>2024-02-14 14:03:57</sys_updated_on>
     </ua_table_licensing_config>
 </record_update>
